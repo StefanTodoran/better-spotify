@@ -12,9 +12,17 @@
 
 ## Database Structure
 
-* Users
-  * (!) Username
-  * (!) Email address
-  * (?) Spotify permanent token
-  * (?) Spotify hour-long token
-  * (?) Apple authentication token
+* Songs table
+  * Global, shared across all users
+  * Maps song id -> spotify song id, apple music song id
+
+* Users table
+  * Username string (required)
+  * Email address string (required)
+  * List of songs (required)
+    * Each song has a song id
+    * Each song has a list of custom string tags
+
+  * Spotify permanent token (optional)
+  * Spotify hour-long token (optional)
+  * Apple authentication token (optional)
