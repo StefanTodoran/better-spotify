@@ -1,16 +1,19 @@
 import { useState } from "react";
-import "./App.css";
 import Header from "./components/Header";
+import { Outlet, useSearchParams } from "react-router-dom";
 
-function App() {
-  const [authenticated, setAuthenticated] = useState(false);
+import "./App.css";
+
+export default function App() {
+  const [authenticated, setAuthenticated] = useState(true); // TODO: change this
+  const [searchParams, setSearchParams] = useSearchParams();
 
   return (
     <>
-      <Header authenticated={authenticated}/>      
-      
+      <div className="main-content">
+        <Header authenticated={authenticated} />
+        <Outlet />
+      </div>
     </>
   )
 }
-
-export default App

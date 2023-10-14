@@ -5,3 +5,46 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+html {
+  --bg-color: #001825ff;
+  --fill-color: #112632;
+  --light-fill: #1C3541;
+  --border-color: #294756;
+
+  --main-red: #d62828ff;
+  --main-orange: #f77f00ff;
+  --highlight-color: #fcbf49ff;
+
+  scroll-behavior: smooth;
+  background-color: var(--bg-color);
+  overflow-x: hidden;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+}
+
+body, button, input {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+}
+
+a {
+  color: var(--main-red);
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  color: var(--main-orange);
+}
+
+a:active {
+  color: var(--highlight-color);
+}
+
+p {
+  max-width: min(80vw, 40em);
+  text-align: center;
+}

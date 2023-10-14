@@ -1,0 +1,154 @@
+input[type=number]:not(.show-steppers) {
+  -moz-appearance: textfield;
+  appearance: textfield;
+  margin: 0;
+}
+
+input[type=number]:not(.show-steppers)::-webkit-inner-spin-button,
+input[type=number]:not(.show-steppers)::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-item {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 10px 10px;
+}
+
+.form-item>.form-item-label {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  top: 50%;
+  left: 1em;
+  transform: translateY(-50%);
+  transition: left 0.25s ease, top 0.25s ease;
+}
+
+.form-item>.form-item-label>p {
+  opacity: 0.5;
+  white-space: nowrap;
+  margin-right: .25em;
+  display: inline;
+  transition:
+    font-size 0.25s ease,
+    /* background-color 0.25s ease, */
+    opacity 0.25s ease;
+}
+
+.form-item.checkbox>.form-item-label>p {
+  white-space: unset;
+}
+
+.form-item:not(.checkbox)>.form-item-label {
+  pointer-events: none;
+}
+
+.form-item.date>.form-item-label,
+.form-item.has-content:not(.checkbox)>.form-item-label {
+  top: 0;
+  left: 0.5em;
+  align-items: unset;
+}
+
+.form-item.date>.form-item-label>p,
+.form-item.has-content:not(.checkbox)>.form-item-label>p {
+  background-color: var(--background-color);
+  font-size: 0.65em;
+  opacity: 1;
+}
+
+.form-item.checkbox>.form-item-label {
+  position: relative;
+  top: unset;
+  left: unset;
+  transform: unset;
+}
+
+.form-item.checkbox {
+  flex: unset;
+}
+
+.form-item.checkbox input {
+  accent-color: var(--main-orange);
+}
+
+.form-field {
+  background: none;
+  border: none;
+  padding: 1em;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5em;
+  font-weight: 400;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+  width: 100%;
+}
+
+.form-field,
+.form-item>.form-item-label>p {
+  font-size: 16px;
+}
+
+.form-item.has-content>.form-field {
+  border-bottom: 2px solid var(--main-orange);
+  padding-bottom: calc(1em - 1px);
+  /* to account for the larger border */
+}
+
+.form-item.read-only>.form-field {
+  border-color: var(--border-color);
+}
+
+.form-field:focus-within {
+  outline: none;
+  background-color: #7e7e7e08;
+}
+
+.invalid {
+  animation: error-flash 0.5s ease-in-out infinite;
+  border-radius: 2px;
+}
+
+.invalid.static {
+  animation: none;
+  outline: 2px solid var(--main-red);
+  border-radius: 2px;
+}
+
+@keyframes error-flash {
+
+  0%,
+  100% {
+    outline: 2px solid transparent;
+  }
+
+  50% {
+    outline: 2px solid var(--main-red);
+  }
+}
+
+/* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
+/* Styles cascade down, with styles for desktop  */
+/* applying to all sizes, tablet styles applying */
+/* to tablet and mobile, and mobile styles being */
+/* mobile specific.                              */
+/* ============================================= */
+
+@media screen and (max-width: 1050px) {}
+
+/* END SCREEN MAX-WIDTH 1050px */
+/* =========================== */
+
+
+@media screen and (max-width:767px) {}
+
+/* END SCREEN MAX-WIDTH 767px */
+/* ========================== */
+
+@media screen and (max-width:479px) {}
+
+/* END SCREEN MAX-WIDTH 479px */
+/* ========================== */
