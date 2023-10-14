@@ -1,0 +1,37 @@
+.basic-button {
+  color: white;
+  font-size: 1rem;
+  padding: .5rem 1rem;
+  border-radius: .5rem;
+  margin: .25rem .5rem;
+  
+  background-color: var(--light-fill);
+  border: 1px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.basic-button:hover {
+  border: 1px solid white;
+  background-color: var(--border-color);
+  cursor: pointer;
+}
+
+.basic-button:disabled {
+  pointer-events: none;
+  filter: grayscale(.5);
+  opacity: .75;
+}
+
+.basic-button:active {
+  transform: scale(0.95);
+}
+
+.basic-button.primary {
+  border-color: var(--main-orange);
+  background-color: var(--main-orange);
+}
+
+.basic-button.primary:hover {
+  border-color: var(--main-red);
+  background-color: var(--main-red);
+}

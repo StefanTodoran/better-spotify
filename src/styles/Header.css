@@ -1,0 +1,33 @@
+nav,
+.branding {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+nav {
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--fill-color);
+
+  justify-content: space-between;
+  padding: 15px 10px;
+}
+
+.branding {
+  --branding-size: 40px;
+}
+
+.branding>.logo {
+  height: var(--branding-size);
+}
+
+.branding>.title {
+  background: #D62828;
+  background: linear-gradient(to bottom, #D62828 0%, #F77F00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: calc(var(--branding-size) * 0.5);
+  font-weight: 700;
+  margin: 0;
+
+}
