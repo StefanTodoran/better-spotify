@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import PageHeading from "../components/PageHeading";
 
 import AuthIcon from "../assets/auth-icon.svg";
 import { outletContext } from "../App";
+import { getRequestOptions } from "../utils";
 
 export default function LoginPage({ }) {
   const navigate = useNavigate();
@@ -23,24 +24,23 @@ export default function LoginPage({ }) {
   function handleLoginAttempt() {
     setLoading(true);
 
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        username: username,
-        password: password,
-      }),
-    };
+    const requestOptions = getRequestOptions("POST", {
+      username: username,
+      password: password,
+    });
 
+    // @ts-expect-error
     fetch(baseUrl + "api/login/", requestOptions)
       .then((response) => {
         if (response.ok) {
           setAuthenticated(true);
         }
+        setLoading(false);
       })
       .catch(error => {
         console.error(error);
         setAuthenticated(false);
+        setLoading(false);
       });
   }
 
@@ -78,6 +78,11 @@ export default function LoginPage({ }) {
           disabled={loading || authenticated}
         >Log In</Button>
       </div>
+
+      <p className="hint">
+        Forgot your login information? Click <Link to="/forgot-password">here</Link> to 
+        reset your password. For other technical issues, please contact the system administrator.
+      </p>
     </>
   );
 }

@@ -25,3 +25,21 @@ export function getFilteredTracks(
     });
   }
 }
+
+export type RestMethods = "GET" | "POST" | "PUT" | "DELETE";
+export function getRequestOptions(
+  type: RestMethods,
+  body: any,
+  token?: string,
+) {
+  return {
+    method: type,
+    mode: "cors",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin" : "*",
+      ...(token && { "Authorization": "Token " + token }),
+    },
+    body: JSON.stringify(body),
+  };
+}

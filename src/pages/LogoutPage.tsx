@@ -1,29 +1,18 @@
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
+import { outletContext } from "../App";
 
 export default function LogoutPage() {
   const [logoutSuccess, setLogoutSuccess] = useState(false);
-  // @ts-expect-error
-  const [authenticated, setAuthenticated] = useOutletContext();
+  const [_baseUrl, _authenticated, setAuthenticated, _authToken, setAuthToken]: outletContext = useOutletContext();
 
 
   useEffect(() => {
-    // TODO: make this work
     setTimeout(() => {
       setAuthenticated(false);
+      setAuthToken(null);
       setLogoutSuccess(true);
-    }, 500);
-
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({ title: "React POST Request Example" })
-    // };
-
-    // fetch("url-goes-here", requestOptions)
-    //   .then((response) => {
-    //     if (response.ok) setLogoutSuccess(true);
-    //   });
+    }, 300 + (Math.random() * 300)); // Just for funsies :)
   }, [logoutSuccess]);
 
   return (

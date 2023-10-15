@@ -7,9 +7,9 @@ import "./App.css";
 export default function App() {
   const navigate = useNavigate();
   
-  const baseUrl = "localhost:8080/";
+  const baseUrl = "/";
   const [authenticated, setAuthenticated] = useState(false);
-  // const [authToken, setAuthToken] = useState();
+  const [authToken, setAuthToken] = useState<string | null>(null);
   // const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
@@ -20,10 +20,22 @@ export default function App() {
     <>
       <div className="main-content">
         <Header authenticated={authenticated} />
-        <Outlet context={[baseUrl, authenticated, setAuthenticated]}/>
+        <Outlet context={[
+          baseUrl, 
+          authenticated, 
+          setAuthenticated,
+          authToken, 
+          setAuthToken
+          ]}/>
       </div>
     </>
   )
 }
 
-export type outletContext = [string, boolean, (authState: boolean) => void];
+export type outletContext = [
+  string, 
+  boolean, 
+  (authState: boolean) => void,
+  string,
+  (newToken: string | null) => void,
+];
