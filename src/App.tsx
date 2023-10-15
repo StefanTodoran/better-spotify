@@ -7,12 +7,12 @@ import "./App.css";
 
 export default function App() {
   const navigate = useNavigate();
-  const [authToken, setAuthToken] = useState<string | null>("null");
+  const [authToken, setAuthToken] = useState<string | null>(null);
   // const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (!authToken) navigate("/login");
-    // if (authToken) window.location.href = baseUrl + "spotify/login/"; // TODO: add endpoint and check that instead
+    if (authToken) window.location.href = baseUrl + "spotify/login/"; // TODO: add endpoint and check that instead
   }, [authToken]);
 
   return (
