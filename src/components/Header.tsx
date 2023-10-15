@@ -53,7 +53,7 @@ export default function Header({
           }}
         >
           <Logo className="logo" />
-          <h1 className="title">Super Spotify</h1>
+          <h1 className="title">Mixify</h1>
         </a>
 
         {/* NAV BUTTONS */}
