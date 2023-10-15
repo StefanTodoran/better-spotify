@@ -29,11 +29,9 @@ export default function LibraryPage({ }) {
   function fetchLibrary() {
     setLoading(true);
 
-    const requestOptions = getRequestOptions("GET", {
-      query: searchQuery,
-    }, authToken);
-
+    const requestOptions = getRequestOptions("GET", undefined, authToken);
     console.log(baseUrl + "api/listSongs", requestOptions);
+
     fetch(baseUrl + "api/listSongs", requestOptions)
       .then((response) => response.json())
       .then((json) => {

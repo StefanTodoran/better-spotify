@@ -68,7 +68,7 @@ export function getFilteredTracks(
 export type RestMethods = "GET" | "POST" | "PUT" | "DELETE";
 export function getRequestOptions(
   type: RestMethods,
-  body: any,
+  body: any | undefined,
   token?: string,
 ) {
   const csrftoken = getCookieValue("csrftoken");
@@ -81,7 +81,7 @@ export function getRequestOptions(
       "X-CSRFToken": csrftoken!,
       ...(token && { "Authorization": "Token " + token }),
     },
-    body: JSON.stringify(body),
+    ...(body !== undefined && {body: JSON.stringify(body)})
   };
 }
 

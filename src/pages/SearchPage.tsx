@@ -35,6 +35,68 @@ export default function SearchPage({ }) {
   function handleFullSearch() {
     setLoading(true);
 
+    // setTimeout(() => {
+    //   setLoading(false);
+    //   setSearchResult({
+    //     tracks: [
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
+    //         artistNames: ["Bad Bunny", "Jhayco"],
+    //         duration: 205000, // ms
+    //         playable: true,
+    //         tags: ["TAG_123", "TAG_456"],
+    //         name: "DAKITI",
+    //         uuid: "UUID123", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
+    //         artistNames: ["Bad Bunny"],
+    //         duration: 210000, // ms
+    //         playable: true,
+    //         tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
+    //         name: "MIA (feat. Drake)",
+    //         uuid: "UUID456", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
+    //         artistNames: ["Bad Bunny", "Chencho Corleone"],
+    //         duration: 178000, // ms
+    //         playable: true,
+    //         tags: ["TAG_123"],
+    //         name: "Me Porto Bonito",
+    //         uuid: "UUID789", // Mixtify ID
+    //       },
+    //     ],
+    //     numTracks: 0,
+
+    //     playlists: [],
+    //     numPlaylists: 0,
+
+    //     tags: [
+    //       {
+    //         name: "feeling bad >:)",
+    //         uuid: "feeling bad >:)",
+    //       },
+    //       {
+    //         name: "bad boy vibes",
+    //         uuid: "bad boy vibes",
+    //       },
+    //       {
+    //         name: "bad bad",
+    //         uuid: "bad bad",
+    //       },
+    //       {
+    //         name: "something something bad",
+    //         uuid: "something something bad",
+    //       },
+    //     ],
+    //     numTags: 0,
+
+    //     friends: [],
+    //     numFriends: 0,
+    //   });
+    // }, 1000);
+
     const requestOptions = getRequestOptions("POST", {
       query: searchQuery,
     }, authToken);
