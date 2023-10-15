@@ -12,8 +12,8 @@ import HelpPage from "./pages/HelpPage.tsx";
 
 import "./index.css";
 import PageHeading from "./components/PageHeading.tsx";
-import LogoIcon from "./assets/logo-icon.svg";
 import FriendsIcon from "./assets/friends-icon.svg";
+import HomePage from "./pages/HomePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <PageHeading iconSrc={LogoIcon}>Home</PageHeading>,
+        element: <HomePage/>,
       },
       {
         path: "search",

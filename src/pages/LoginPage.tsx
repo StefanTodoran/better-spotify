@@ -29,8 +29,7 @@ export default function LoginPage({ }) {
       password: password,
     });
 
-    // fetch(baseUrl + "api/login/", requestOptions)
-    fetch(baseUrl + "accounts/login/", requestOptions)
+    fetch(baseUrl + "api/login/", requestOptions)
       .then((response) => response.json())
       .then((json) => {
         setAuthToken(json.token);

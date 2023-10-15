@@ -41,13 +41,11 @@ export default function SearchPage({ }) {
 
     console.log(requestOptions);
     fetch(baseUrl + "api/search", requestOptions)
-      .then((response) => {
-        if (response.ok) {
-          console.log("response", response);
-          console.log("response.json()", response.json());
-        }
+      .then((response) => response.json())
+      .then((json) => {
         setLoading(false);
-        setSearchResult(undefined);
+        setSearchResult(json);
+        console.log("JSON", json);
       })
       .catch(error => {
         console.error("search:", error);
