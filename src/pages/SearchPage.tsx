@@ -228,7 +228,7 @@ export default function SearchPage({ }) {
                   secondOption="Match All"
                   current={filterMode === "Match Any" ? 0 : 1}
                   // @ts-expect-error It will be of type FilterMode
-                  onClick={setFilterMode}
+                  onToggle={setFilterMode}
                 />
 
                 {searchResult.tags.map((tag, idx) =>

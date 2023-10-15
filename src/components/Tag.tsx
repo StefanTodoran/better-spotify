@@ -18,7 +18,14 @@ export default function Tag({
   onClick,
 }: Props) {
   return (
-    <span className={selected ? "tag selected" : "tag"} onClick={onClick} tabIndex={0}>
+    <span 
+    className={selected ? "tag selected" : "tag"} 
+    onClick={onClick}
+    onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+      if (event.key === "Enter") onClick();
+    }} 
+    tabIndex={0}
+    >
       {name}
     </span>
   );

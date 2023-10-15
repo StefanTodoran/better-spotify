@@ -1,21 +1,26 @@
-import { CSSProperties, useRef } from "react";
+import { CSSProperties, useLayoutEffect, useRef, useState } from "react";
 import "../styles/Taglike.css";
 
 interface Props {
   firstOption: string,
   secondOption: string,
   current: number, // 0 for firstOption, 1 for secondOption
-  onClick: (setOption: string) => void,
+  onToggle: (setOption: string) => void,
 }
 
 export default function ToggleButton({
   firstOption,
   secondOption,
   current,
-  onClick,
+  onToggle,
 }: Props) {
   const firstOptionRef = useRef<HTMLSpanElement>();
   const secondOptionRef = useRef<HTMLSpanElement>();
+
+  const [didRender, setDidRender] = useState(false);
+  useLayoutEffect(() => {
+    if (!didRender) setDidRender(true);
+  }, []);
 
   let className = "toggle-button tag";
   if (current === 0) className += " first-selected";
@@ -24,7 +29,10 @@ export default function ToggleButton({
   return (
     <span
       className={className}
-      onClick={() => onClick(current ? firstOption : secondOption)}
+      onClick={() => onToggle(current ? firstOption : secondOption)}
+      onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
+        if (event.key === "Enter") onToggle(current ? firstOption : secondOption);
+      }}
       tabIndex={0}
     >
       <span

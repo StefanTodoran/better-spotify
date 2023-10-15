@@ -50,6 +50,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e02523458c391fe8180a19a1069",
                 artistNames: ["Elton John"],
+                // albumName: "The Lockdown Sessions",
                 duration: 202000, // ms
                 playable: true,
                 tags: ["dua fever"],
@@ -59,6 +60,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e02383ed92279639a6b02e23ba3",
                 artistNames: ["Dua Lipa"],
+                // albumName: "Future Nostalgia",
                 duration: 210000, // ms
                 playable: true,
                 tags: ["dua fever"],
@@ -68,6 +70,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
                 artistNames: ["Bad Bunny"],
+                // albumName: "MIA (feat. Drake)",
                 duration: 210000, // ms
                 playable: true,
                 tags: ["feeling bad >:)", "bad bad", "something something bad"],
@@ -77,15 +80,17 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
                 artistNames: ["Bad Bunny", "Jhayco"],
+                // albumName: "DÀKITI",
                 duration: 205000, // ms
                 playable: true,
                 tags: ["feeling bad >:)", "bad boy vibes"],
-                name: "DAKITI",
+                name: "DÀKITI",
                 uuid: "1", // Mixtify ID
               },
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e02cc7fbfef4f6b51ba9211c091",
                 artistNames: ["Dua Lipa", "Angele"],
+                // albumName: "Fever",
                 duration: 156000, // ms
                 playable: true,
                 tags: ["dua fever", "bad bad"],
@@ -95,6 +100,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
                 artistNames: ["Bad Bunny", "Chencho Corleone"],
+                // albumName: "Un Verano Sin Ti",
                 duration: 178000, // ms
                 playable: true,
                 tags: ["feeling bad >:)"],
@@ -104,6 +110,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e027b1fc51ff3257b5286a1ecec",
                 artistNames: ["Bad Bunny"],
+                // albumName: "nadie sabe lo que va a pasar mañana",
                 duration: 165000, // ms
                 playable: true,
                 tags: ["feeling bad >:)", "bad boy vibes"],
@@ -113,6 +120,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e025f3aef5159749e4b61686670",
                 artistNames: ["Fuerza Regida", "Bad Bunny"],
+                // albumName: "Sigan Hablando",
                 duration: 271000, // ms
                 playable: true,
                 tags: ["feeling bad >:)", "bad bad"],
@@ -122,6 +130,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e02f6f36a5ff816939253221bec",
                 artistNames: ["Yahritza Y Su Esencia", "Bad Bunny"],
+                // albumName: "Frágil",
                 duration: 160000, // ms
                 playable: true,
                 tags: [],
@@ -131,6 +140,7 @@ export default function LibraryPage({ }) {
               {
                 albumArt: "https://i.scdn.co/image/ab67616d00001e0282ce4c7bbf861185252e82ae",
                 artistNames: ["Grupo Frontera", "Bad Bunny"],
+                // albumName: "un x100to",
                 duration: 194000, // ms
                 playable: true,
                 tags: ["something something bad"],
@@ -252,7 +262,7 @@ export default function LibraryPage({ }) {
                 secondOption="Match All"
                 current={filterMode === "Match Any" ? 0 : 1}
                 // @ts-expect-error It will be of type FilterMode
-                onClick={setFilterMode}
+                onToggle={setFilterMode}
               />
 
               {libraryData?.tags.map((tag, idx) =>

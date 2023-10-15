@@ -8,7 +8,7 @@ import AuthIcon from "../assets/auth-icon.svg";
 import { outletContext } from "../App";
 import { getRequestOptions } from "../utils";
 
-export default function LoginPage({ }) {
+export default function LoginPage() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [baseUrl, authToken, setAuthToken]: outletContext = useOutletContext();
@@ -37,8 +37,14 @@ export default function LoginPage({ }) {
       })
       .catch(error => {
         console.error(error);
-        setAuthToken(null);
-        setLoading(false);
+
+        setTimeout(() => {
+          setAuthToken("null");
+          setLoading(false);
+        }, 1500);
+
+        // setAuthToken(null);
+        // setLoading(false);
       });
   }
 

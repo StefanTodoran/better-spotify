@@ -21,6 +21,10 @@ nav {
   --branding-size: 3rem;
 }
 
+.branding {
+  border-radius: calc(var(--branding-size) * 0.1);
+}
+
 .branding:hover,
 #burger-menu:hover {
   cursor: pointer;
@@ -32,19 +36,21 @@ nav {
 }
 
 .branding>.title {
+  font-family: 'Nunito', sans-serif;
   background: #D62828;
   background: linear-gradient(to bottom, #D62828 0%, #F77F00 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: calc(var(--branding-size) * 0.5);
-  font-weight: 700;
-  margin: 0;
+  font-size: calc(var(--branding-size) * 0.6);
+  font-weight: 800;
+  margin: 0 0 0 .1em;
 }
 
 #burger-menu-container {
   height: calc(var(--branding-size) * 0.8);
   width: calc(var(--branding-size) * 0.8);
   margin: 0 calc(var(--branding-size) * 0.2);
+  border-radius: calc(var(--branding-size) * 0.1);
 }
 
 #burger-menu {
@@ -71,6 +77,7 @@ nav {
 
 #menu-dropdown.closed {
   transform: scale(0.5);
+  visibility: hidden;
 }
 
 #menu-dropdown.open {

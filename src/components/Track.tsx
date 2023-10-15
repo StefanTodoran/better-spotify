@@ -1,10 +1,11 @@
+import { CSSProperties } from "react";
 import PlayIcon from "../assets/play-icon.svg";
 import PauseIcon from "../assets/pause-icon.svg";
 import "../styles/Track.css";
-import { CSSProperties } from "react";
 
 export interface TrackObject {
   albumArt: string, // url
+  // albumName: string,
   artistNames: string[],
   duration: number, // ms
   playable: boolean,
@@ -41,7 +42,7 @@ export default function Track({
   if (currentlyPlaying) className += " currently-playing";
 
   return (
-    <div className={className}>
+    <article className={className}>
       <div className="art-container">
         <img className="album-art" src={albumArt} />
         <div className="toggle-playback">
@@ -71,7 +72,7 @@ export default function Track({
           style={{"--duration": timeInfo.totalSeconds} as CSSProperties}
         />
       </div>
-    </div>
+    </article>
   );
 }
 
