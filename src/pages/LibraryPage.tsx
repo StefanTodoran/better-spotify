@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import SectionBreak from "../components/SectionBreak";
+import ToggleButton from "../components/ToggleButton";
+import PageHeading from "../components/PageHeading";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
-import PageHeading from "../components/PageHeading";
 import Track from "../components/Track";
-import SectionBreak from "../components/SectionBreak";
 import Tag from "../components/Tag";
-import ToggleButton from "../components/ToggleButton";
 import { FilterMode, SearchResult, getFilteredTracks } from "../utils";
 
 import LibraryIcon from "../assets/album-icon.svg";
@@ -199,6 +199,8 @@ export default function LibraryPage({ }) {
             <Track
               key={idx}
               {...track}
+              currentlyPlaying={false}
+              playPauseCallback={() => {}}
               onClick={() => { }}
             />
           )}

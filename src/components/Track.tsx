@@ -1,3 +1,5 @@
+import PlayIcon from "../assets/play-icon.svg";
+import PauseIcon from "../assets/pause-icon.svg";
 import "../styles/Track.css";
 
 export interface TrackObject {
@@ -15,7 +17,8 @@ interface Props {
   artistNames: string[],
   duration: number,
   name: string,
-
+  currentlyPlaying: boolean,
+  playPauseCallback: () => void,
   onClick: () => void,
 }
 
@@ -24,7 +27,8 @@ export default function Track({
   artistNames,
   duration,
   name,
-
+  currentlyPlaying,
+  playPauseCallback,
   onClick,
 }: Props) {
   const timeInfo = millisecondsToMinutesSeconds(duration);
@@ -33,7 +37,12 @@ export default function Track({
     <div className="track" onClick={onClick} tabIndex={0}>
       <div className="art-container">
         <img className="album-art" src={albumArt} />
-        <div className="start-playback"></div>
+        <div className="toggle-playback">
+          <img
+            src={currentlyPlaying ? PauseIcon : PlayIcon}
+            onClick={playPauseCallback}
+          />
+        </div>
       </div>
 
       <div className="info-container">

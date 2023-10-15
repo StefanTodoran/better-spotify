@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import SectionBreak from "../components/SectionBreak";
+import ToggleButton from "../components/ToggleButton";
+import PageHeading from "../components/PageHeading";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
-import PageHeading from "../components/PageHeading";
 import Track from "../components/Track";
-import SectionBreak from "../components/SectionBreak";
 import Tag from "../components/Tag";
-import ToggleButton from "../components/ToggleButton";
+import { Link } from "react-router-dom";
 import { FilterMode, SearchResult, getFilteredTracks } from "../utils";
 
 import SearchIcon from "../assets/search-icon.svg";
@@ -217,6 +217,8 @@ export default function SearchPage({ }) {
                 <Track
                   key={idx}
                   {...track}
+                  currentlyPlaying={false}
+                  playPauseCallback={() => {}}
                   onClick={() => { }}
                 />
               )}
