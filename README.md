@@ -1,4 +1,4 @@
-# Super Spotify
+# Mixify
 
 ## Project Overview
 

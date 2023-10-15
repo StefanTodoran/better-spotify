@@ -69,7 +69,6 @@ export default function LibraryPage({ }) {
 
   const [selectedTrack, setSelectedTrack] = useState(-1);
   function handleTrackSelection(target: number) {
-    console.log(target);
     if (target === selectedTrack) setSelectedTrack(-1);
     else setSelectedTrack(target);
   }
@@ -77,7 +76,6 @@ export default function LibraryPage({ }) {
   return (
     <>
       <PageHeading iconSrc={LibraryIcon}>Library</PageHeading>
-
 
       <section className="search-results-container">
         <div className="controls-container">

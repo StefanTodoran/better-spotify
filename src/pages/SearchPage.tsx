@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import Track from "../components/Track";
 import Tag from "../components/Tag";
 import { Link, useOutletContext } from "react-router-dom";
-import { FilterMode, SearchResult, beginPlayback, getFilteredTracks, getRequestOptions } from "../utils";
+import { FilterMode, SearchResult, beginPlayback, getFilteredTracks, getRequestOptions, pausePlayback } from "../utils";
 import { outletContext } from "../App";
 
 import SearchIcon from "../assets/search-icon.svg";
@@ -71,6 +71,7 @@ export default function SearchPage({ }) {
   const [filterMode, setFilterMode] = useState<FilterMode>("Match Any");
   const [selectedTags, setSelectedTags] = useState(new Set<string>());
 
+  const filteredTracks = getFilteredTracks(searchResult?.tracks, selectedTags, filterMode);
   function toggleTag(target: string) {
     const newSelected = new Set(selectedTags);
     if (newSelected.has(target)) {
@@ -81,7 +82,12 @@ export default function SearchPage({ }) {
     setSelectedTags(newSelected);
   }
 
-  const filteredTracks = getFilteredTracks(searchResult?.tracks, selectedTags, filterMode);
+  const [currentlyPlaying, setPlaybackState] = useState(false);
+  const [selectedTrack, setSelectedTrack] = useState(-1);
+  function handleTrackSelection(target: number) {
+    if (target === selectedTrack) setSelectedTrack(-1);
+    else setSelectedTrack(target);
+  }
 
   return (
     <>
@@ -137,12 +143,22 @@ export default function SearchPage({ }) {
                 <Track
                   key={idx}
                   {...track}
-                  selected={true}
+                  selected={selectedTrack === idx}
                   currentlyPlaying={false}
                   playPauseCallback={() => {
-                    beginPlayback(track.uuid, 0, authToken);
+                    if (currentlyPlaying) {
+                      pausePlayback(authToken)
+                        .then(() => { setPlaybackState(false) })
+                        .catch((error) => console.error(error));
+                    } else {
+                      beginPlayback(track.uuid, 0, authToken)
+                        .then(() => { setPlaybackState(true) })
+                        .catch((error) => console.error(error));
+                    }
                   }}
-                  onClick={() => { }}
+                  onClick={() => {
+                    handleTrackSelection(idx);
+                  }}
                 />
               )}
 
