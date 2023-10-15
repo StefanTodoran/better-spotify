@@ -1,6 +1,7 @@
 import PlayIcon from "../assets/play-icon.svg";
 import PauseIcon from "../assets/pause-icon.svg";
 import "../styles/Track.css";
+import { CSSProperties } from "react";
 
 export interface TrackObject {
   albumArt: string, // url
@@ -64,7 +65,10 @@ export default function Track({
       </div>
 
       <div className="progress-bar-container">
-        <div className="progress-bar-fill"/>
+        <div
+          className={currentlyPlaying ? "progress-bar-fill currently-playing" : "progress-bar-fill"}
+          style={{"--duration": timeInfo.totalSeconds} as CSSProperties}
+        />
       </div>
     </div>
   );
@@ -73,6 +77,7 @@ export default function Track({
 function millisecondsToMinutesSeconds(milliseconds: number) {
   const totalSeconds = Math.ceil(milliseconds / 1000);
   return {
+    totalSeconds: totalSeconds,
     minutes: Math.floor(totalSeconds / 60),
     seconds: totalSeconds % 60,
   };

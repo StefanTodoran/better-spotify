@@ -108,11 +108,24 @@
 
 .progress-bar-fill {
   --border-size: 2px;
-  width: calc(100% - var(--border-size));
+  /* width: calc(100% - var(--border-size)); */
   height: calc(100% - var(--border-size));
   margin: calc(var(--border-size) / 2);
   border-radius: 8px;
   background: linear-gradient(to left, var(--main-orange), var(--main-red));
+}
+
+.currently-playing.progress-bar-fill {
+  animation: slow-fill linear calc(1s * var(--duration));
+}
+
+@keyframes slow-fill {
+  0% {
+    width: 5px;
+  }
+  100% {
+    width: calc(100% - var(--border-size));
+  }
 }
 
 .track.selected .toggle-playback {
