@@ -156,31 +156,24 @@ export default function SearchPage({ }) {
                   playPauseCallback={() => {
                     // A track is currently playing and it is this track...
                     if (playbackState.id === track.uuid && playbackState.playing) {
-                      pausePlayback(authToken)
-                        .then((response) => response.json())
-                        .then((json) => {
-                          setPlaybackState({ id: track.uuid, playing: false, offset: json.position });
-                        })
-                        .catch((error) => console.error(error));
+                      pausePlayback(
+                        authToken,
+                        (json) => setPlaybackState({ id: track.uuid, playing: false, offset: json.position }),
+                        (error) => console.error(error)
+                      );
                     }
 
-                    // A track is not playing but we were last playing this track...
-                    if (playbackState.id === track.uuid && !playbackState.playing) {
-                      const offset = playbackState.offset < track.duration ? playbackState.offset : 0;
-                      beginPlayback(track.uuid, offset, authToken)
-                        .then(() => {
-                          setPlaybackState({ id: track.uuid, playing: true, offset });
-                        })
-                        .catch((error) => console.error(error));
-                    }
+                    // A track is not playing...
+                    if (!playbackState.playing) {
+                      let offset = 0;
+                      if (playbackState.id === track.uuid && playbackState.offset < track.duration) {
+                        offset = playbackState.offset;
+                      }
 
-                    // A track is not playing but we weren't last playing this track...
-                    if (playbackState.id !== track.uuid && !playbackState.playing) {
-                      beginPlayback(track.uuid, 0, authToken)
-                        .then(() => {
-                          setPlaybackState({ id: track.uuid, playing: true, offset: 0 });
-                        })
-                        .catch((error) => console.error(error));
+                      beginPlayback(track.uuid, offset, authToken,
+                        () => setPlaybackState({ id: track.uuid, playing: true, offset }),
+                        (error) => console.error(error),
+                      );
                     }
                   }}
                   onClick={() => {

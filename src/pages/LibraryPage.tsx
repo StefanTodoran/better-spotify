@@ -29,7 +29,7 @@ export default function LibraryPage({ }) {
   function fetchLibrary() {
     setLoading(true);
 
-    const requestOptions = getRequestOptions("POST", {
+    const requestOptions = getRequestOptions("GET", {
       query: searchQuery,
     }, authToken);
 

@@ -77,7 +77,7 @@ export function getRequestOptions(
     // mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Origin" : "*",
+      "Access-Control-Allow-Origin": "*",
       "X-CSRFToken": csrftoken!,
       ...(token && { "Authorization": "Token " + token }),
     },
@@ -97,20 +97,40 @@ function getCookieValue(key: string) {
  * @param song The track's Mixify ID or UUID. 
  * @param offset How far to start the playback in milliseconds.
  * @param token The user's Django authentication token.
+ * @param thenCallback Will be triggered after the fetch.
+ * @param catchCallback Will be triggered in the event of a failure in the .then chain and given the error object.
  */
-export function beginPlayback(song: string, offset: number, token: string) {
+export function beginPlayback(
+  song: string,
+  offset: number,
+  token: string,
+  thenCallback: () => void,
+  catchCallback: (error?: any) => void,
+) {
   const requestOptions = getRequestOptions("POST", {
     song: song,
     position: offset,
   }, token);
 
-  return fetch(baseUrl + "api/playback/play", requestOptions);
+  fetch(baseUrl + "api/playback/play", requestOptions)
+    .then(thenCallback)
+    .catch(catchCallback);
 }
 
 /**
  * @param token The user's Django authentication token.
+ * @param thenCallback Will be triggered after the fetch and passed the parsed response json.
+ * @param catchCallback Will be triggered in the event of a failure in the .then chain and given the error object.
  */
-export function pausePlayback(token: string) {
+export function pausePlayback(
+  token: string,
+  thenCallback: (json?: any) => void,
+  catchCallback: (error?: any) => void,
+) {
   const requestOptions = getRequestOptions("PUT", {}, token);
-  return fetch(baseUrl + "api/playback/pause", requestOptions);
+
+  fetch(baseUrl + "api/playback/pause", requestOptions)
+    .then((response) => response.json())
+    .then(thenCallback)
+    .catch(catchCallback);
 }
