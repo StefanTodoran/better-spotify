@@ -7,7 +7,7 @@ import Button from "../components/Button";
 import Track from "../components/Track";
 import Tag from "../components/Tag";
 import { Link, useOutletContext } from "react-router-dom";
-import { FilterMode, SearchResult, getFilteredTracks, getRequestOptions } from "../utils";
+import { FilterMode, SearchResult, beginPlayback, getFilteredTracks, getRequestOptions } from "../utils";
 import { outletContext } from "../App";
 
 import SearchIcon from "../assets/search-icon.svg";
@@ -137,8 +137,11 @@ export default function SearchPage({ }) {
                 <Track
                   key={idx}
                   {...track}
+                  selected={true}
                   currentlyPlaying={false}
-                  playPauseCallback={() => {}}
+                  playPauseCallback={() => {
+                    beginPlayback(track.uuid, 0, authToken);
+                  }}
                   onClick={() => { }}
                 />
               )}

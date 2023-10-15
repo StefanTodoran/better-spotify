@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-//
+If you are looking for the backend, <a href="https://github.com/njbradley/better-spotify-backend">click</a> here.
 
 ## Tech Stack
 

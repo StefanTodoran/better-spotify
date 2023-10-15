@@ -33,6 +33,7 @@ export default function LibraryPage({ }) {
       query: searchQuery,
     }, authToken);
 
+    console.log(baseUrl + "api/search", requestOptions);
     fetch(baseUrl + "api/search", requestOptions)
       .then((response) => response.json())
       .then((json) => {
