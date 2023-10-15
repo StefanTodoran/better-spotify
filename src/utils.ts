@@ -112,5 +112,5 @@ export function beginPlayback(song: string, offset: number, token: string) {
  */
 export function pausePlayback(token: string) {
   const requestOptions = getRequestOptions("POST", {}, token);
-  return fetch(baseUrl + "api/playback/play", requestOptions);
+  return fetch(baseUrl + "api/playback/pause", requestOptions);
 }

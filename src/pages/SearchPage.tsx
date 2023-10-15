@@ -144,7 +144,7 @@ export default function SearchPage({ }) {
                   key={idx}
                   {...track}
                   selected={selectedTrack === idx}
-                  currentlyPlaying={false}
+                  currentlyPlaying={currentlyPlaying}
                   playPauseCallback={() => {
                     if (currentlyPlaying) {
                       pausePlayback(authToken)
