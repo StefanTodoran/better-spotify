@@ -1,11 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import Button, { ButtonProps } from "./Button";
 
-interface Props extends Omit<ButtonProps, "onClick">  {
+interface Props extends Omit<ButtonProps, "onClick"> {
   displayPath: string,
+  iconSrc?: string,
 }
 
-export default function HeaderButton({ displayPath, ...props }: Props) {
+export default function HeaderButton({ displayPath, iconSrc, ...props }: Props) {
   const navigate = useNavigate();
   const navigatePath = "/" + displayPath.toLowerCase().replace(/\s/g, "");
 
@@ -13,6 +14,7 @@ export default function HeaderButton({ displayPath, ...props }: Props) {
     <Button {...props} onClick={() => {
       navigate(navigatePath);
     }}>
+      {iconSrc && <img src={iconSrc} />}
       {displayPath}
     </Button>
   );

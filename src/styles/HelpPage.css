@@ -1,0 +1,13 @@
+.cards-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 20vmin), 1fr));
+  width: 100%;
+}
+
+.help-card {
+  border: 1px solid var(--border-color);
+  background-color: var(--fill-color);
+  border-radius: 1rem;
+  padding: 1rem 1rem;
+}

@@ -7,6 +7,7 @@ import NotFoundPage from "./pages/NotFoundPage.tsx";
 import SearchPage from "./pages/SearchPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import LogoutPage from "./pages/LogoutPage.tsx";
+import HelpPage from "./pages/HelpPage.tsx";
 
 import "./index.css";
 
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: "logout",
         element: <LogoutPage/>,
+      },
+      {
+        path: "help",
+        element: <HelpPage/>,
       },
     ],
   },

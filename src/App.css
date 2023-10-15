@@ -3,14 +3,35 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  
   --margin-bottom: 15vh;
   height: calc(100vh - var(--margin-bottom));
   margin-bottom: var(--margin-bottom);
+
+  --side-pad: 10vw;
+  padding: 0 10vw;
+  width: calc(100% - calc(2 * var(--side-pad)));
 }
 
 .buttons-row {
   display: flex;
   flex-direction: row;
   margin: 2rem 0;
+}
+
+p.hint {
+  opacity: 0.5;
+  font-size: 0.75em;
+}
+
+p.hint > a {
+  color: var(--main-orange);
+}
+
+p.hint > a:hover {
+  color: var(--highlight-color);
+}
+
+p.hint > a:active {
+  color: var(--main-red);
 }

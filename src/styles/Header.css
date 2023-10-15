@@ -1,5 +1,6 @@
 nav,
-.branding {
+.branding,
+.nav-buttons {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -14,16 +15,15 @@ nav {
   left: 0;
   right: 0;
   justify-content: space-between;
-  padding: 15px 10px;
+  padding: 1rem .75rem;
+
+  --branding-size: 3rem;
 }
 
-.branding {
-  --branding-size: 40px;
+.branding:hover,
+#burger-menu:hover {
   cursor: pointer;
-}
-
-.branding:hover {
-  opacity: 0.75;
+  transform: scale(0.95);
 }
 
 .branding>.logo {
@@ -38,5 +38,34 @@ nav {
   font-size: calc(var(--branding-size) * 0.5);
   font-weight: 700;
   margin: 0;
+}
 
+#burger-menu {
+  height: calc(var(--branding-size) * 0.8);
+  width: calc(var(--branding-size) * 0.8);
+  margin: 0 calc(var(--branding-size) * 0.2);
+}
+
+#menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  background-color: var(--fill-color);
+  border-radius: .5rem;
+  opacity: 0;
+
+  display: flex;
+  flex-direction: column;
+  transform-origin: 90% 0%;
+}
+
+#menu-dropdown.closed {
+  transform: scale(0.5);
+}
+
+#menu-dropdown.open {
+  opacity: 1;
 }

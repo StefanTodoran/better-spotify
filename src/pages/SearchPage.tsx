@@ -1,22 +1,35 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
-import Dropdown from "../components/DropDown";
 
-enum SearchMode {
-  Song,
-  User,
-  Tag,
-};
-const SearchModeStrings = Object.keys(SearchMode).filter((el) => { return isNaN(Number(el)) });
+interface SearchResult {
+  tracks: TrackObject[],
+  artists: any,
+  albums: any,
+  playlists: any,
+  tags: any,
+  friends: UserObject,
+}
+
+interface TrackObject {
+  album: {
+    album_type: string,
+    total_tracks: number,
+  }
+}
+
+interface UserObject {
+  username: string,
+  isFriend: boolean,
+  profileUri: string,
+}
 
 export default function SearchPage({ }) {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState("");
+  const [searchResult, setSearchResult] = useState();
 
   const searchInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -53,12 +66,6 @@ export default function SearchPage({ }) {
   // DEBOUNCING SEARCH QUERIES \\
   // [ ===================== ] \\
 
-  console.log(Object.keys(SearchMode).filter((el) => { return isNaN(Number(el)) }));
-  console.log(Object.keys(SearchMode).filter((el) => { return !isNaN(Number(el)) }));
-  console.log(Object.keys(SearchMode).filter((el) => { return !isNaN(Number(el)) }).map(
-    (elem) => [elem, SearchMode[parseInt(elem)]]
-  ));
-
   return (
     <>
       <div className="buttons-row">
@@ -73,26 +80,22 @@ export default function SearchPage({ }) {
           />
         </div>
 
-        <Dropdown
-          value={searchType}
-          updateValue={setSearchType}
-          label={"Type"}
-          options={(() => {
-            const options: { [key: string]: string } = {};
-            SearchModeStrings.forEach((mode, idx) => {
-              options[idx.toString()] = mode;
-            });
-
-            return options;
-          })()}
-        />
-
         <Button
           customClass="primary"
           onClick={handleFullSearch}
           disabled={!searchQuery || loading}
         >Search</Button>
       </div>
+
+      {
+        searchResult ?
+          <></> :
+
+          <p className="hint">
+            Search for tracks, artists, albums, tags, friends, or playlists.<br/>
+            Confused? See the <Link to="/help">help center</Link>.
+          </p>
+      }
     </>
   );
 }

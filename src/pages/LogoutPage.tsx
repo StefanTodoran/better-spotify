@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 
 export default function LogoutPage() {
-  const navigate = useNavigate();
   const [logoutSuccess, setLogoutSuccess] = useState(false);
-
   // @ts-expect-error
   const [authenticated, setAuthenticated] = useOutletContext();
 
-  useEffect(() => {
-    if (logoutSuccess) {
-      navigate("/login");
-      return;
-    }
 
+  useEffect(() => {
     // TODO: make this work
     setTimeout(() => {
       setAuthenticated(false);

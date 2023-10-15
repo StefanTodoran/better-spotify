@@ -36,5 +36,13 @@
 }
 
 .header-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   margin: .25rem .5rem;
+}
+
+.header-button>img {
+  height: 2em;
+  margin-right: .5em;
 }

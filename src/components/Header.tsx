@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import HeaderButton from "./HeaderButton";
 
 import Logo from "../assets/logo.svg?react";
+import BurgerMenu from "../assets/burger-menu.svg?react";
+import SearchIcon from "../assets/search-icon.svg";
+import LibraryIcon from "../assets/album-icon.svg";
+import FriendsIcon from "../assets/friends-icon.svg";
 import "../styles/Header.css";
 
 interface Props {
@@ -13,7 +17,12 @@ export default function Header({
   authenticated
 }: Props) {
   const navigate = useNavigate();
-  
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  function toggleMenu() {
+    setMenuOpen(!menuOpen);
+  }
+
   const [headerHeight, setHeaderHeight] = useState(0);
   const header = useRef<HTMLElement>(null);
 
@@ -49,7 +58,7 @@ export default function Header({
           tabIndex={0}
           className="branding"
           onClick={() => {
-            // navigate("/");
+            navigate("/");
           }}
         >
           <Logo className="logo" />
@@ -57,33 +66,53 @@ export default function Header({
         </a>
 
         {/* NAV BUTTONS */}
-        <div>
+        <div className="nav-buttons">
           <HeaderButton
             customClass="header-button"
             displayPath="Search"
+            iconSrc={SearchIcon}
             disabled={!authenticated}
-          />
+            />
           <HeaderButton
             customClass="header-button"
             displayPath="Library"
+            iconSrc={LibraryIcon}
             disabled={!authenticated}
-          />
+            />
           <HeaderButton
             customClass="header-button"
             displayPath="Friends"
+            iconSrc={FriendsIcon}
             disabled={!authenticated}
           />
 
-          {
-            authenticated ?
-              <HeaderButton
-                customClass="header-button"
-                displayPath="Log Out"
-              /> :
-              <HeaderButton
-                customClass="header-button primary"
-                displayPath="Log In"
+          {!authenticated && <HeaderButton
+            customClass="header-button primary"
+            displayPath="Log In"
+          />}
+
+          {authenticated &&
+            <>
+              <BurgerMenu
+                id="burger-menu"
+                className={menuOpen ? "open" : "closed"}
+                onClick={toggleMenu}
               />
+              <div
+                id="menu-dropdown"
+                className={menuOpen ? "open" : "closed"}
+                onClick={toggleMenu}
+              >
+                <HeaderButton
+                  customClass="header-button"
+                  displayPath="Help"
+                />
+                <HeaderButton
+                  customClass="header-button"
+                  displayPath="Log Out"
+                />
+              </div>
+            </>
           }
         </div>
       </nav>

@@ -68,6 +68,7 @@ export default function Dropdown({
         className="form-field"
         value={value} 
         onChange={updateSelected}
+        disabled={!updateValue}
         ref={giveRef}
       >
         <option value=""></option>
