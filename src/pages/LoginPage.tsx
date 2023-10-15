@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import PageHeading from "../components/PageHeading";
+
+import AuthIcon from "../assets/auth-icon.svg";
 
 export default function LoginPage({ }) {
   const navigate = useNavigate();
@@ -33,7 +36,8 @@ export default function LoginPage({ }) {
 
   return (
     <>
-      <h2>Login</h2>
+      <PageHeading iconSrc={AuthIcon}>Login</PageHeading>
+      
       <TextInput
         label="Username"
         value={username}

@@ -1,7 +1,8 @@
 .cards-grid {
+  position: relative;
   display: grid;
   gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(min(240px, 20vmin), 1fr));
+  grid-template-columns: 1fr 1fr;
   width: 100%;
 }
 
@@ -9,5 +10,65 @@
   border: 1px solid var(--border-color);
   background-color: var(--fill-color);
   border-radius: 1rem;
-  padding: 1rem 1rem;
+  padding: 1.5rem;
+  flex-direction: column;
 }
+
+.help-card.selected {
+  background-color: var(--fill-color);
+}
+
+.help-card>p {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.help-card img {
+  height: 2em;
+  margin-right: .5em;
+}
+
+.help-card > .help-content {
+  opacity: 0.9;
+  font-size: 0.9em;
+  max-height: 0;
+  margin: 0;
+  opacity: 0;
+  text-align: left;
+}
+
+.help-card.selected > .help-content {
+  max-height: 10em;
+  opacity: 1;
+}
+
+/* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
+/* Styles cascade down, with styles for desktop  */
+/* applying to all sizes, tablet styles applying */
+/* to tablet and mobile, and mobile styles being */
+/* mobile specific.                              */
+/* ============================================= */
+
+@media screen and (max-width: 1050px) {}
+
+/* END SCREEN MAX-WIDTH 1050px */
+/* =========================== */
+
+@media screen and (max-width:767px) {
+  .cards-grid {
+    gap: 0;
+  }
+}
+
+/* END SCREEN MAX-WIDTH 767px */
+/* ========================== */
+
+@media screen and (max-width:479px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* END SCREEN MAX-WIDTH 479px */
+/* ========================== */

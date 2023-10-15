@@ -3,18 +3,17 @@ import Button, { ButtonProps } from "./Button";
 
 interface Props extends Omit<ButtonProps, "onClick"> {
   displayPath: string,
-  iconSrc?: string,
 }
 
-export default function HeaderButton({ displayPath, iconSrc, ...props }: Props) {
+export default function HeaderButton({ displayPath,  ...props }: Props) {
   const navigate = useNavigate();
   const navigatePath = "/" + displayPath.toLowerCase().replace(/\s/g, "");
 
   return (
     <Button {...props} onClick={() => {
+      console.log(navigatePath);
       navigate(navigatePath);
     }}>
-      {iconSrc && <img src={iconSrc} />}
       {displayPath}
     </Button>
   );

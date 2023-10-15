@@ -7,6 +7,8 @@ import BurgerMenu from "../assets/burger-menu.svg?react";
 import SearchIcon from "../assets/search-icon.svg";
 import LibraryIcon from "../assets/album-icon.svg";
 import FriendsIcon from "../assets/friends-icon.svg";
+import HelpIcon from "../assets/help-icon.svg";
+import AuthIcon from "../assets/auth-icon.svg";
 import "../styles/Header.css";
 
 interface Props {
@@ -17,14 +19,48 @@ export default function Header({
   authenticated
 }: Props) {
   const navigate = useNavigate();
-  const [menuOpen, setMenuOpen] = useState(false);
 
-  function toggleMenu() {
-    setMenuOpen(!menuOpen);
-  }
+  // [ ====================== ] \\
+  // OPEN & CLOSE MENU DROPDOWN \\
+
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuDropdown = useRef<HTMLElement>(null);
+  const menuBurger = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    function handleClickOutsideMenu(event: MouseEvent) {
+      const clickTarget = event.target as Node;
+      const menuDropdownClicked = menuDropdown.current?.contains(clickTarget);
+      const menuBurgerClicked = menuBurger.current?.contains(clickTarget);
+
+      if (!menuOpen && menuBurgerClicked) {
+        setMenuOpen(true);
+        return;
+      }
+
+      if (menuOpen && (menuBurgerClicked || !menuDropdownClicked)) {
+        // setTimeout(() => {
+        setMenuOpen(false);
+        // }, 100);
+        return;
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutsideMenu); // Bind the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideMenu); // Unbind the event listener on clean up
+    };
+  }, [menuOpen, menuDropdown]);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [authenticated]);
+
+  // OPEN & CLOSE MENU DROPDOWN \\
+  // [ ====================== ] \\
 
   const [headerHeight, setHeaderHeight] = useState(0);
-  const header = useRef<HTMLElement>(null);
+  const header = useRef<HTMLDivElement>(null);
 
   function handleResize() {
     if (!header.current) return;
@@ -67,24 +103,7 @@ export default function Header({
 
         {/* NAV BUTTONS */}
         <div className="nav-buttons">
-          <HeaderButton
-            customClass="header-button"
-            displayPath="Search"
-            iconSrc={SearchIcon}
-            disabled={!authenticated}
-            />
-          <HeaderButton
-            customClass="header-button"
-            displayPath="Library"
-            iconSrc={LibraryIcon}
-            disabled={!authenticated}
-            />
-          <HeaderButton
-            customClass="header-button"
-            displayPath="Friends"
-            iconSrc={FriendsIcon}
-            disabled={!authenticated}
-          />
+          <NavButtons displayOn="desktop" authenticated={authenticated} />
 
           {!authenticated && <HeaderButton
             customClass="header-button primary"
@@ -93,23 +112,33 @@ export default function Header({
 
           {authenticated &&
             <>
-              <BurgerMenu
-                id="burger-menu"
-                className={menuOpen ? "open" : "closed"}
-                onClick={toggleMenu}
-              />
+              <div
+                id="burger-menu-container"
+                // @ts-expect-error Not sure why it wants a LegacyRef<HTMLDivElement>??
+                ref={menuBurger}
+              >
+                <BurgerMenu
+                  id="burger-menu"
+                  className={menuOpen ? "open" : "closed"}
+                />
+              </div>
+
               <div
                 id="menu-dropdown"
                 className={menuOpen ? "open" : "closed"}
-                onClick={toggleMenu}
+                // @ts-expect-error Not sure why it wants a LegacyRef<HTMLDivElement>??
+                ref={menuDropdown}
               >
+                <NavButtons displayOn="mobile" authenticated={authenticated} />
                 <HeaderButton
                   customClass="header-button"
                   displayPath="Help"
+                  iconSrc={HelpIcon}
                 />
                 <HeaderButton
                   customClass="header-button"
                   displayPath="Log Out"
+                  iconSrc={AuthIcon}
                 />
               </div>
             </>
@@ -119,6 +148,31 @@ export default function Header({
 
       {/* HEADER PADDING */}
       <div style={{ height: headerHeight }}></div>
+    </>
+  );
+}
+
+function NavButtons({ displayOn, authenticated }: { displayOn: string, authenticated: boolean }) {
+  return (
+    <>
+      <HeaderButton
+        customClass={"header-button " + displayOn}
+        displayPath="Search"
+        iconSrc={SearchIcon}
+        disabled={!authenticated}
+      />
+      <HeaderButton
+        customClass={"header-button " + displayOn}
+        displayPath="Library"
+        iconSrc={LibraryIcon}
+        disabled={!authenticated}
+      />
+      <HeaderButton
+        customClass={"header-button " + displayOn}
+        displayPath="Friends"
+        iconSrc={FriendsIcon}
+        disabled={!authenticated}
+      />
     </>
   );
 }

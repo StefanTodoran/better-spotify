@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import PageHeading from "../components/PageHeading";
+
+import SearchIcon from "../assets/search-icon.svg";
 
 interface SearchResult {
   tracks: TrackObject[],
@@ -68,6 +71,8 @@ export default function SearchPage({ }) {
 
   return (
     <>
+      <PageHeading iconSrc={SearchIcon}>Search</PageHeading>
+      
       <div className="buttons-row">
         <div onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
           if (event.key === "Enter") handleFullSearch();

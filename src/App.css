@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
+
   --margin-bottom: 15vh;
   height: calc(100vh - var(--margin-bottom));
   margin-bottom: var(--margin-bottom);
@@ -24,14 +24,57 @@ p.hint {
   font-size: 0.75em;
 }
 
-p.hint > a {
+p.hint>a {
   color: var(--main-orange);
 }
 
-p.hint > a:hover {
+p.hint>a:hover {
   color: var(--highlight-color);
 }
 
-p.hint > a:active {
+p.hint>a:active {
   color: var(--main-red);
 }
+
+.icon-heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.icon-heading>img {
+  height: 1.75em;
+  margin-left: .15em;
+}
+
+/* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
+/* Styles cascade down, with styles for desktop  */
+/* applying to all sizes, tablet styles applying */
+/* to tablet and mobile, and mobile styles being */
+/* mobile specific.                              */
+/* ============================================= */
+
+@media screen and (max-width: 1050px) {}
+
+/* END SCREEN MAX-WIDTH 1050px */
+/* =========================== */
+
+@media screen and (min-width:767px) {
+  .mobile {
+    display: none;
+  }
+}
+
+@media screen and (max-width:767px) {
+  .desktop {
+    display: none;
+  }
+}
+
+/* END SCREEN MAX-WIDTH 767px */
+/* ========================== */
+
+@media screen and (max-width:479px) {}
+
+/* END SCREEN MAX-WIDTH 479px */
+/* ========================== */

@@ -1,10 +1,14 @@
 .basic-button {
-  color: white;
-  font-size: 1rem;
   padding: .5rem 1rem;
   border-radius: .5rem;
   margin: .5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   
+  color: white;
+  font-size: 1rem;
   background-color: var(--light-fill);
   border: 1px solid var(--border-color);
 }
@@ -36,13 +40,10 @@
 }
 
 .header-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   margin: .25rem .5rem;
 }
 
-.header-button>img {
+.basic-button>img {
   height: 2em;
   margin-right: .5em;
 }
