@@ -10,6 +10,8 @@ import SearchIcon from "../assets/search-icon.svg";
 import TagIcon from "../assets/tag-icon.svg";
 import TrackIcon from "../assets/playlist-icon.svg";
 import "../styles/SearchPage.css";
+import Tag, { TaglistObject } from "../components/Tag";
+import ToggleButton from "../components/ToggleButton";
 
 interface SearchResult {
   tracks: TrackObject[],
@@ -37,12 +39,6 @@ interface PlaylistObject {
   image: string, // url
   name: string,
   owner: UserObject,
-}
-
-interface TaglistObject {
-  name: string,
-  // tracks: string[], // Mixify IDs
-  uuid: string, // Mixify ID
 }
 
 interface UserObject {
@@ -81,6 +77,7 @@ export default function SearchPage({ }) {
             artistNames: ["Bad Bunny", "Jhayco"],
             duration: 205000, // ms
             playable: true,
+            tags: ["TAG_123", "TAG_456"],
             name: "DAKITI",
             uuid: "UUID123", // Mixtify ID
           },
@@ -89,6 +86,7 @@ export default function SearchPage({ }) {
             artistNames: ["Bad Bunny"],
             duration: 210000, // ms
             playable: true,
+            tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
             name: "MIA (feat. Drake)",
             uuid: "UUID456", // Mixtify ID
           },
@@ -97,6 +95,7 @@ export default function SearchPage({ }) {
             artistNames: ["Bad Bunny", "Chencho Corleone"],
             duration: 178000, // ms
             playable: true,
+            tags: ["TAG_123"],
             name: "Me Porto Bonito",
             uuid: "UUID789", // Mixtify ID
           },
@@ -116,8 +115,20 @@ export default function SearchPage({ }) {
             uuid: "TAG_456",
           },
           {
-            name: "hyperdabad",
+            name: "bad bad",
             uuid: "TAG_789",
+          },
+          {
+            name: "something something bad",
+            uuid: "TAG2_123",
+          },
+          {
+            name: "idk",
+            uuid: "TAG2_456",
+          },
+          {
+            name: "tag",
+            uuid: "TAG2_789",
           },
         ],
         numTags: 0,
@@ -143,6 +154,21 @@ export default function SearchPage({ }) {
 
   // DEBOUNCING SEARCH QUERIES \\
   // [ ===================== ] \\
+
+  const [filterMode, setFilterMode] = useState("Match All");
+  const [selectedTags, setSelectedTags] = useState(new Set());
+
+  function toggleTag(target: string) {
+    const newSelected = new Set(selectedTags);
+    if (newSelected.has(target)) {
+      newSelected.delete(target);
+    } else {
+      newSelected.add(target);
+    }
+    setSelectedTags(newSelected);
+  }
+
+  // const filteredTracks = searchResult?.tracks.filter((track) => {});
 
   return (
     <>
@@ -172,19 +198,30 @@ export default function SearchPage({ }) {
           <section className="search-results-container">
             {searchResult.tags.length > 0 && <>
               <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
-              {searchResult.tags.map((track, idx) =>
-                <div></div>
-                // <Track
-                //   {...track}
-                //   onClick={() => { }}
-                // />
-              )}
+              <div className="tags-container">
+                {searchResult.tags.map((tag, idx) =>
+                  <Tag
+                    key={idx}
+                    {...tag}
+                    selected={selectedTags.has(tag.uuid)}
+                    onClick={() => { toggleTag(tag.uuid) }}
+                  />
+                )}
+
+                <ToggleButton
+                  firstOption="Match Any"
+                  secondOption="Match All"
+                  current={filterMode === "Match Any" ? 0 : 1}
+                  onClick={setFilterMode}
+                />
+              </div>
             </>}
 
             {searchResult.tracks.length > 0 && <>
               <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
               {searchResult.tracks.map((track, idx) =>
                 <Track
+                  key={idx}
                   {...track}
                   onClick={() => { }}
                 />

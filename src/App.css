@@ -51,6 +51,7 @@ p.hint>a:active {
 
 .icon-section-label {
   font-weight: 500;
+  margin: 2.5rem 0 1.5rem;
 }
 
 .icon-section-label>img {

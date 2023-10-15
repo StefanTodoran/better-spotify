@@ -1,0 +1,75 @@
+.tag {
+  border: 1px solid var(--border-color);
+  background-color: var(--fill-color);
+  border-radius: 2em;
+  padding: .5rem 1rem;
+  margin: .5rem;
+}
+
+.tag:hover {
+  cursor: pointer;
+  border-color: white;
+}
+
+.tag.selected {
+  border: 1px solid var(--main-orange);
+  background-color: var(--main-orange);
+}
+
+.tag.selected:hover {
+  border: 1px solid var(--main-red);
+  background-color: var(--main-red);
+}
+
+/*   BASIC TAG   */
+/* ============= */
+/* TOGGLE BUTTON */
+
+.toggle-button {
+  position: relative;
+  overflow: hidden;
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.toggle-button>.tag {
+  border: none;
+  background: none;
+  margin: 0;
+}
+
+.first-option {
+  margin-right: 1.5rem;
+}
+
+.first-option,
+.second-option {
+  position: relative;
+  z-index: 1;
+}
+
+/* .first-selected>.first-option,
+.second-selected>.second-option {} */
+
+.current-option {
+  background-color: var(--main-orange);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 0;
+  border-radius: 2em;
+}
+
+.toggle-button:hover>.current-option {
+  background-color: var(--main-red);
+}
+
+.first-selected>.current-option {
+  left: 0;
+  right: var(--second-width, 50%);
+}
+
+.second-selected>.current-option {
+  right: 0;
+  left: var(--first-width, 50%);
+}

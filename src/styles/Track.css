@@ -8,7 +8,8 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: min(90vw, 30rem);
+  min-width: 30rem;
+  max-width: 90vw;
 }
 
 .track:hover {
@@ -32,22 +33,22 @@
 }
 
 .info-container h3,
-.info-container p {
+.info-container div {
   margin: 0;
 }
 
-.info-container p {
+.info-container div {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
-.info-container .artist-names {
+/* .info-container .artist-names {
 
-}
+} */
 
 .info-container .time-info {
-  margin-left: auto;
   opacity: 0.5;
   font-size: 0.85em;
 }

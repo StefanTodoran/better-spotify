@@ -3,6 +3,11 @@
   background-color: var(--fill-color); */
 }
 
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 /* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
 /* Styles cascade down, with styles for desktop  */
 /* applying to all sizes, tablet styles applying */

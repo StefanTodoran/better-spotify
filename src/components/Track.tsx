@@ -6,6 +6,7 @@ export interface TrackObject {
   duration: number, // ms
   playable: boolean,
   name: string,
+  tags: string[], // List of tag Mixify IDs
   uuid: string, // Mixify ID
 }
 
@@ -34,7 +35,7 @@ export default function Track({
 
       <div className="info-container">
         <h3>{name}</h3>
-        <p>
+        <div>
           <span className="artist-names">{
             artistNames.map((artist, idx) => {
               if (idx < artistNames.length - 1) return artist + ", ";
@@ -42,7 +43,7 @@ export default function Track({
             })
           }</span>
           <span className="time-info">{timeInfo.minutes}:{timeInfo.seconds}</span>
-        </p>
+        </div>
       </div>
     </div>
   );
