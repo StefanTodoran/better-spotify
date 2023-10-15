@@ -1,18 +1,19 @@
 import { useEffect, useRef, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import SectionBreak from "../components/SectionBreak";
 import ToggleButton from "../components/ToggleButton";
 import PageHeading from "../components/PageHeading";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import Track from "../components/Track";
+import { outletContext } from "../App";
 import Tag from "../components/Tag";
 import { FilterMode, SearchResult, beginPlayback, getFilteredTracks, getRequestOptions, pausePlayback } from "../utils";
 
+import Loader from "../assets/loader.svg";
 import LibraryIcon from "../assets/album-icon.svg";
 import TagIcon from "../assets/tag-icon.svg";
 import TrackIcon from "../assets/playlist-icon.svg";
-import { useOutletContext } from "react-router-dom";
-import { outletContext } from "../App";
 import "../styles/SearchPage.css";
 
 export default function LibraryPage({ }) {
@@ -212,96 +213,101 @@ export default function LibraryPage({ }) {
     <>
       <PageHeading iconSrc={LibraryIcon}>Library</PageHeading>
 
-      <section className="content-section">
-        <div className="controls-container">
-          <TextInput
-            label="Search"
-            value={searchQuery}
-            updateValue={!loading ? setSearchQuery : undefined}
-            giveRef={searchInput}
-          />
+      {!libraryData ?
+        <img src={Loader} style={{ height: "3rem" }} /> :
 
-          <div className="controls-buttons">
-            <Button
-              onClick={fetchLibrary}
-              disabled={loading}
-            >Refresh</Button>
-            <Button
-              onClick={fetchLibrary}
-              disabled={loading}
-            >Manage</Button>
-          </div>
-        </div>
-
-        {libraryData && libraryData.tags && libraryData.tags.length > 0 && <>
-          <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
-          <div className="tags-container">
-            <ToggleButton
-              firstOption="Match Any"
-              secondOption="Match All"
-              current={filterMode === "Match Any" ? 0 : 1}
-              // @ts-expect-error It will be of type FilterMode
-              onClick={setFilterMode}
-            />
-
-            {libraryData?.tags.map((tag, idx) =>
-              <Tag
-                key={idx}
-                {...tag}
-                selected={selectedTags.has(tag.uuid)}
-                onClick={() => { toggleTag(tag.uuid) }}
+        <section className="content-section">
+          <div className="controls-container">
+            <div className="controls-buttons">
+              <TextInput
+                label="Search"
+                value={searchQuery}
+                updateValue={!loading ? setSearchQuery : undefined}
+                giveRef={searchInput}
               />
-            )}
+              <Button
+              customClass="primary"
+                onClick={() => { }}
+                disabled={loading}
+              >Search</Button>
+            </div>
+
+            <div className="controls-buttons">
+              <Button
+                onClick={fetchLibrary}
+                disabled={loading}
+              >Refresh</Button>
+              <Button
+                onClick={fetchLibrary}
+                disabled={loading}
+              >Manage</Button>
+            </div>
           </div>
-        </>}
 
-        {libraryData && libraryData.tracks.length > 0 && <>
-          <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
-          {filteredTracks.map((track, idx) =>
-            <Track
-              key={idx}
-              {...track}
-              selected={selectedTrack === idx}
-              currentlyPlaying={playbackState.playing && playbackState.id === track.uuid}
-              playPauseCallback={() => {
-                // A track is currently playing and it is this track...
-                if (playbackState.id === track.uuid && playbackState.playing) {
-                  pausePlayback(
-                    authToken,
-                    (json) => setPlaybackState({ id: track.uuid, playing: false, offset: json.position }),
-                    (error) => console.error(error)
-                  );
-                }
+          {libraryData.tags && libraryData.tags.length > 0 && <>
+            <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
+            <div className="tags-container">
+              <ToggleButton
+                firstOption="Match Any"
+                secondOption="Match All"
+                current={filterMode === "Match Any" ? 0 : 1}
+                // @ts-expect-error It will be of type FilterMode
+                onClick={setFilterMode}
+              />
 
-                // A track is not playing...
-                if (!playbackState.playing) {
-                  let offset = 0;
-                  if (playbackState.id === track.uuid && playbackState.offset < track.duration) {
-                    offset = playbackState.offset;
+              {libraryData?.tags.map((tag, idx) =>
+                <Tag
+                  key={idx}
+                  {...tag}
+                  selected={selectedTags.has(tag.uuid)}
+                  onClick={() => { toggleTag(tag.uuid) }}
+                />
+              )}
+            </div>
+          </>}
+
+          {libraryData.tracks.length > 0 && <>
+            <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
+            {filteredTracks.map((track, idx) =>
+              <Track
+                key={idx}
+                {...track}
+                selected={selectedTrack === idx}
+                currentlyPlaying={playbackState.playing && playbackState.id === track.uuid}
+                playPauseCallback={() => {
+                  // A track is currently playing and it is this track...
+                  if (playbackState.id === track.uuid && playbackState.playing) {
+                    pausePlayback(
+                      authToken,
+                      (json) => setPlaybackState({ id: track.uuid, playing: false, offset: json.position }),
+                      (error) => console.error(error)
+                    );
                   }
 
-                  beginPlayback(track.uuid, offset, authToken,
-                    () => setPlaybackState({ id: track.uuid, playing: true, offset }),
-                    (error) => console.error(error),
-                  );
-                }
-              }}
-              onClick={() => {
-                handleTrackSelection(idx);
-              }}
-            />
-          )}
+                  // A track is not playing...
+                  if (!playbackState.playing) {
+                    let offset = 0;
+                    if (playbackState.id === track.uuid && playbackState.offset < track.duration) {
+                      offset = playbackState.offset;
+                    }
 
-          {filteredTracks.length === 0 && <p className="hint" style={{ maxWidth: "unset" }}>
-            No tracks match all tags!
-          </p>}
-        </>}
-      </section>
+                    beginPlayback(track.uuid, offset, authToken,
+                      () => setPlaybackState({ id: track.uuid, playing: true, offset }),
+                      (error) => console.error(error),
+                    );
+                  }
+                }}
+                onClick={() => {
+                  handleTrackSelection(idx);
+                }}
+              />
+            )}
 
-      {/* <p className="hint">
-        Your library contains all of your tags and tagged songs.<br />
-        Confused? See the <Link to="/help">help center</Link>.
-      </p> */}
+            {filteredTracks.length === 0 && <p className="hint" style={{ maxWidth: "unset" }}>
+              No tracks match all tags!
+            </p>}
+          </>}
+        </section>}
     </>
   );
 }

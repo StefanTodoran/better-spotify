@@ -38,6 +38,7 @@ export default function Track({
 
   let className = "track";
   if (selected) className += " selected";
+  if (currentlyPlaying) className += " currently-playing";
 
   return (
     <div className={className}>
@@ -66,7 +67,7 @@ export default function Track({
 
       <div className="progress-bar-container">
         <div
-          className={currentlyPlaying ? "progress-bar-fill currently-playing" : "progress-bar-fill"}
+          className={"progress-bar-fill"}
           style={{"--duration": timeInfo.totalSeconds} as CSSProperties}
         />
       </div>
