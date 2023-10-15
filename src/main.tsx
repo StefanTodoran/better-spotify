@@ -10,6 +10,10 @@ import LogoutPage from "./pages/LogoutPage.tsx";
 import HelpPage from "./pages/HelpPage.tsx";
 
 import "./index.css";
+import PageHeading from "./components/PageHeading.tsx";
+import LogoIcon from "./assets/logo-icon.svg";
+import LibraryIcon from "./assets/album-icon.svg";
+import FriendsIcon from "./assets/friends-icon.svg";
 
 const router = createBrowserRouter([
   {
@@ -19,7 +23,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "",
-        element: <p>home</p>,
+        element: <PageHeading iconSrc={LogoIcon}>Home</PageHeading>,
       },
       {
         path: "search",
@@ -27,11 +31,11 @@ const router = createBrowserRouter([
       },
       {
         path: "library",
-        element: <p>library</p>,
+        element: <PageHeading iconSrc={LibraryIcon}>Library</PageHeading>,
       },
       {
         path: "friends",
-        element: <p>friends</p>,
+        element: <PageHeading iconSrc={FriendsIcon}>Friends</PageHeading>,
       },
       {
         path: "login",

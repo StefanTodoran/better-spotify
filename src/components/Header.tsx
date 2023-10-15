@@ -147,7 +147,7 @@ export default function Header({
       </nav>
 
       {/* HEADER PADDING */}
-      <div style={{ height: headerHeight }}></div>
+      <div id="header-spaceholder" style={{ height: headerHeight }}></div>
     </>
   );
 }

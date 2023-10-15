@@ -1,6 +1,6 @@
 .search-results-container {
-  border: 1px solid var(--border-color);
-  background-color: var(--fill-color);
+  /* border: 1px solid var(--border-color);
+  background-color: var(--fill-color); */
 }
 
 /* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */

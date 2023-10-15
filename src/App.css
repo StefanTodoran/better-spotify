@@ -5,7 +5,7 @@
   align-items: center;
 
   --margin-bottom: 15vh;
-  height: calc(100vh - var(--margin-bottom));
+  min-height: calc(100vh - var(--margin-bottom));
   margin-bottom: var(--margin-bottom);
 
   --side-pad: 10vw;
@@ -36,16 +36,36 @@ p.hint>a:active {
   color: var(--main-red);
 }
 
-.icon-heading {
+.icon-heading,
+.icon-section-label {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 
-.icon-heading>img {
+.icon-heading>img,
+.icon-section-label>img {
   height: 1.75em;
   margin-left: .15em;
 }
+
+.icon-section-label {
+  font-weight: 500;
+}
+
+.icon-section-label>img {
+  margin-right: .5rem;
+}
+
+.icon-section-label>hr {
+  width: 100%;
+  margin-right: .2rem;
+  border-color: white;
+  background-color: white;
+  opacity: 0.75;
+}
+
+/* .icon-section-label> */
 
 /* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
 /* Styles cascade down, with styles for desktop  */

@@ -99,13 +99,17 @@ input[type=number]:not(.show-steppers)::-webkit-outer-spin-button {
   /* to account for the larger border */
 }
 
-.form-item.read-only {
-  opacity: 0.5;
-}
-
 .form-field:focus-within {
   outline: none;
   background-color: var(--fill-color);
+}
+
+.form-item.has-content:focus-within > .form-field {
+  border-bottom-color: var(--main-red);
+}
+
+.form-item.read-only {
+  opacity: 0.5;
 }
 
 .invalid {

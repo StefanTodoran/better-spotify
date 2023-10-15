@@ -81,3 +81,7 @@ nav {
   justify-content: unset;
   opacity: 1;
 }
+
+#header-spaceholder {
+  margin-bottom: 3rem;
+}
