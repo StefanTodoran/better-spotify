@@ -39,17 +39,19 @@ export default function SearchPage({ }) {
       query: searchQuery,
     }, authToken);
 
+    console.log(requestOptions);
     // @ts-expect-error TODO: probably remove this
     fetch(baseUrl + "api/search", requestOptions)
       .then((response) => {
         if (response.ok) {
-          console.log(response);
-          console.log(response.json());
+          console.log("response", response);
+          console.log("response.json()", response.json());
         }
         setLoading(false);
+        setSearchResult(undefined);
       })
       .catch(error => {
-        console.error(error);
+        console.error("search:", error);
         setLoading(false);
       });
   }
