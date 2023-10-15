@@ -29,7 +29,7 @@ export default function LoginPage({ }) {
       password: password,
     });
 
-    // @ts-expect-error
+    // @ts-expect-error TODO: probably remove this
     fetch(baseUrl + "api/login/", requestOptions)
       .then((response) => {
         if (response.ok) {
