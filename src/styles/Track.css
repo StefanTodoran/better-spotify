@@ -19,8 +19,8 @@
 }
 
 .track.selected {
-  margin: 2rem .5rem;
-  border: 1px solid var(--border-color) !important;
+  margin: 1.5rem .5rem 2rem;
+  border: 1px solid white;
 }
 
 .track>.art-container {
@@ -49,11 +49,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.art-container:hover>.toggle-playback {
-  opacity: 1;
-  pointer-events: unset;
 }
 
 .toggle-playback>img {
@@ -96,9 +91,35 @@
 
 .progress-bar-container {
   position: absolute;
-  top: calc(100% + 1rem);
+  top: calc(100% + .45rem);
   left: 0;
   right: 0;
-  height: 5px;
-  background-color: var(--fill-color);
+  height: 8px;
+  border-radius: 8px;
+  background-color: var(--border-color);
+  background-color: white;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.track.selected .progress-bar-container {
+  opacity: 1;
+}
+
+.progress-bar-fill {
+  --border-size: 2px;
+  width: calc(100% - var(--border-size));
+  height: calc(100% - var(--border-size));
+  margin: calc(var(--border-size) / 2);
+  border-radius: 8px;
+  background: linear-gradient(to left, var(--main-orange), var(--main-red));
+}
+
+.track.selected .toggle-playback {
+  opacity: 1;
+  pointer-events: unset;
+}
+
+.art-container:hover>.toggle-playback>img {
+  transform: scale(0.9);
 }

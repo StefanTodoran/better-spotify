@@ -39,7 +39,7 @@ export default function Track({
   if (selected) className += " selected";
 
   return (
-    <div className={className} onClick={onClick} tabIndex={0}>
+    <div className={className}>
       <div className="art-container">
         <img className="album-art" src={albumArt} />
         <div className="toggle-playback">
@@ -50,7 +50,7 @@ export default function Track({
         </div>
       </div>
 
-      <div className="info-container">
+      <div className="info-container" onClick={onClick} tabIndex={0}>
         <h3>{name}</h3>
         <div>
           <span className="artist-names">{
