@@ -79,6 +79,6 @@ function millisecondsToMinutesSeconds(milliseconds: number) {
   return {
     totalSeconds: totalSeconds,
     minutes: Math.floor(totalSeconds / 60),
-    seconds: totalSeconds % 60,
+    seconds: (totalSeconds % 60 + "").padStart(2, "0"),
   };
 }

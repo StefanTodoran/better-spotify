@@ -6,7 +6,7 @@ import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import Track from "../components/Track";
 import Tag from "../components/Tag";
-import { FilterMode, SearchResult, getFilteredTracks, getRequestOptions } from "../utils";
+import { FilterMode, SearchResult, beginPlayback, getFilteredTracks, getRequestOptions, pausePlayback } from "../utils";
 
 import LibraryIcon from "../assets/album-icon.svg";
 import TagIcon from "../assets/tag-icon.svg";
@@ -41,7 +41,7 @@ export default function LibraryPage({ }) {
       })
       .catch(error => {
         console.error("search:", error);
-        
+
         setTimeout(() => {
           setLoading(false);
           setLibraryData({
@@ -138,10 +138,10 @@ export default function LibraryPage({ }) {
               },
             ],
             numTracks: 0,
-  
+
             playlists: [],
             numPlaylists: 0,
-  
+
             tags: [
               {
                 name: "dua fever",
@@ -165,7 +165,7 @@ export default function LibraryPage({ }) {
               },
             ],
             numTags: 0,
-  
+
             friends: [],
             numFriends: 0,
           });
@@ -192,6 +192,15 @@ export default function LibraryPage({ }) {
     }
     setSelectedTags(newSelected);
   }
+
+  interface PlaybackState {
+    id: string,
+    offset: number,
+    playing: boolean,
+  }
+  const [playbackState, setPlaybackState] = useState<PlaybackState>({
+    id: "", offset: 0, playing: false,
+  });
 
   const [selectedTrack, setSelectedTrack] = useState(-1);
   function handleTrackSelection(target: number) {
@@ -253,9 +262,33 @@ export default function LibraryPage({ }) {
               key={idx}
               {...track}
               selected={selectedTrack === idx}
-              currentlyPlaying={false}
-              playPauseCallback={() => { }}
-              onClick={() => { handleTrackSelection(idx) }}
+              currentlyPlaying={playbackState.playing && playbackState.id === track.uuid}
+              playPauseCallback={() => {
+                // A track is currently playing and it is this track...
+                if (playbackState.id === track.uuid && playbackState.playing) {
+                  pausePlayback(
+                    authToken,
+                    (json) => setPlaybackState({ id: track.uuid, playing: false, offset: json.position }),
+                    (error) => console.error(error)
+                  );
+                }
+
+                // A track is not playing...
+                if (!playbackState.playing) {
+                  let offset = 0;
+                  if (playbackState.id === track.uuid && playbackState.offset < track.duration) {
+                    offset = playbackState.offset;
+                  }
+
+                  beginPlayback(track.uuid, offset, authToken,
+                    () => setPlaybackState({ id: track.uuid, playing: true, offset }),
+                    (error) => console.error(error),
+                  );
+                }
+              }}
+              onClick={() => {
+                handleTrackSelection(idx);
+              }}
             />
           )}
 
