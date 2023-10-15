@@ -5,27 +5,50 @@ import Button from "../components/Button";
 import PageHeading from "../components/PageHeading";
 
 import SearchIcon from "../assets/search-icon.svg";
+import "../styles/SearchPage.css";
 
 interface SearchResult {
   tracks: TrackObject[],
-  artists: any,
-  albums: any,
-  playlists: any,
+  numTracks: number,
+
+  // artists: any,
+  // numArtists: number,
+
+  // albums: any,
+  // numAlbums: number,
+
+  playlists: PlaylistObject[],
+  numPlaylists: number,
+  
   tags: any,
-  friends: UserObject,
+  numTags: number,
+  
+  friends: UserObject[],
+  numFriends: number,
 }
 
 interface TrackObject {
-  album: {
-    album_type: string,
-    total_tracks: number,
-  }
+  albumArt: string, // url
+  artistsNames: string[],
+  duration: number, // ms
+  playable: boolean,
+  name: string,
+  uuid: string, // Mixtify ID
+}
+
+interface PlaylistObject {
+  collaborative: boolean,
+  description?: string,
+  image: string, // url
+  name: string,
+  owner: UserObject,
 }
 
 interface UserObject {
   username: string,
   isFriend: boolean,
   profileUri: string,
+  uuid: string, // Mixtify ID
 }
 
 export default function SearchPage({ }) {

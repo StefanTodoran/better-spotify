@@ -17,22 +17,22 @@ interface HelpItem {
 const helpSections: HelpItem[] = [
   {
     name: "Overview",
-    content: "TODO",
+    content: "Build musical connections with friends regardless of their streaming platform of choice with Mixify, an application layer over Spotify, Apple Music, and other platforms which enables cross-platform playlist sharing and joint sessions.",
     icon: HelpIcon,
   },
   {
     name: "Playlists",
-    content: "TODO",
+    content: 'To get started, you can import your playlists, which will convert them to "taglists". You can play a taglist the just like a playlist, but tags are far more flexible.',
     icon: PlaylistIcon,
   },
   {
     name: "Tags",
-    content: "TODO",
+    content: 'Tags are a superset of playlists, meaning anything one can do with playlist can be done with tags. Tags allow shuffling together multiple "playlists" or shuffling together only shared songs between multiple "playlists".',
     icon: TagsIcon,
   },
   {
     name: "Friends",
-    content: "Build musical connections with friends regardless of their streaming platform of choice with Mixify, an application layer over Spotify, Apple Music, and other platforms which enables cross-platform playlist sharing and joint sessions.",
+    content: "By invite your friends to create free Mixtify accounts, you can share music and listen together with friends, even if they use different streaming servies.",
     icon: FriendsIcon,
   },
 ];

@@ -8,14 +8,10 @@
 
 .help-card {
   border: 1px solid var(--border-color);
-  background-color: var(--fill-color);
+  background-color: var(--fill-color) !important;
   border-radius: 1rem;
   padding: 1.5rem;
   flex-direction: column;
-}
-
-.help-card.selected {
-  background-color: var(--fill-color);
 }
 
 .help-card>p {
