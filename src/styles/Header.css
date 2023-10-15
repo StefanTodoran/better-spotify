@@ -22,6 +22,10 @@ nav {
   cursor: pointer;
 }
 
+.branding:hover {
+  opacity: 0.75;
+}
+
 .branding>.logo {
   height: var(--branding-size);
 }

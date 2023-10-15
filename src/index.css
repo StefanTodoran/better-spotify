@@ -26,14 +26,19 @@ body {
   margin: 0;
 }
 
-body, button, input {
+body,
+button,
+input {
   font-family: 'Poppins', sans-serif;
   color: white;
 }
 
+* {
+  transition: all 0.2s ease;
+}
+
 a {
   color: var(--main-red);
-  transition: all 0.2s ease;
 }
 
 a:hover {

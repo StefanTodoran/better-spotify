@@ -104,7 +104,7 @@ input[type=number]:not(.show-steppers)::-webkit-outer-spin-button {
 
 .form-field:focus-within {
   outline: none;
-  background-color: #7e7e7e08;
+  background-color: var(--fill-color);
 }
 
 .invalid {

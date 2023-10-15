@@ -46,6 +46,7 @@ export default function Header({
     <>
       <nav ref={header}>
         <a
+          tabIndex={0}
           className="branding"
           onClick={() => {
             navigate("/");
@@ -65,13 +66,27 @@ export default function Header({
           <Button onClick={() => {
             navigate("/library");
           }} disabled={!authenticated}>
-            My Library
+            Library
           </Button>
           <Button onClick={() => {
-            navigate("/logout");
+            navigate("/friends");
           }} disabled={!authenticated}>
-            Log Out
+            Friends
           </Button>
+
+          {
+            authenticated ?
+            <Button onClick={() => {
+              navigate("/logout");
+            }}>
+              Log Out
+            </Button> :
+            <Button customClass="primary" onClick={() => {
+              navigate("/login");
+            }}>
+              Log In
+            </Button>
+          }
         </div>
       </nav>
 

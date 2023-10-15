@@ -7,7 +7,6 @@
   
   background-color: var(--light-fill);
   border: 1px solid var(--border-color);
-  transition: all 0.2s ease;
 }
 
 .basic-button:hover {
@@ -19,7 +18,7 @@
 .basic-button:disabled {
   pointer-events: none;
   filter: grayscale(.5);
-  opacity: .75;
+  opacity: .5;
 }
 
 .basic-button:active {

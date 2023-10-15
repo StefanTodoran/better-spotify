@@ -5,6 +5,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
+import LogoutPage from "./pages/LogoutPage.tsx";
 
 import "./index.css";
 
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
     errorElement: <NotFoundPage />,
     children: [
       {
+        path: "",
+        element: <p>home</p>,
+      },
+      {
         path: "search",
         element: <p>search</p>,
       },
@@ -23,8 +28,16 @@ const router = createBrowserRouter([
         element: <p>library</p>,
       },
       {
+        path: "friends",
+        element: <p>friends</p>,
+      },
+      {
         path: "login",
         element: <LoginPage/>,
+      },
+      {
+        path: "logout",
+        element: <LogoutPage/>,
       },
     ],
   },
