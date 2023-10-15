@@ -96,7 +96,7 @@ export default function LibraryPage({ }) {
           </div>
         </div>
 
-        {libraryData && libraryData.tags.length > 0 && <>
+        {libraryData && libraryData.tags && libraryData.tags.length > 0 && <>
           <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
           <div className="tags-container">
             <ToggleButton

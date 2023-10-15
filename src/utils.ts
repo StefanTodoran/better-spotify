@@ -47,6 +47,7 @@ export function getFilteredTracks(
 
   // @ts-expect-error TypeScript compiler is just smooth-brained, this is guaranteed to return TrackObject[]
 ): TrackObject[] {
+  console.log("filter time")
   if (!tracks || tracks.length === 0) return [];
   if (!tags || tags.size === 0) return tracks;
 
