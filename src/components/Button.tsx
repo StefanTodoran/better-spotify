@@ -1,6 +1,6 @@
 import "../styles/Button.css";
 
-interface Props {
+export interface ButtonProps {
   onClick: () => void,
   disabled?: boolean,
   customClass?: string,
@@ -12,7 +12,7 @@ export default function Button({
   disabled,
   customClass,
   children,
-}: Props) {
+}: ButtonProps) {
   let className = "basic-button";
   if (customClass) className += " " + customClass;
 

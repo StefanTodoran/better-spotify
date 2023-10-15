@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import App from "./App.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
+import SearchPage from "./pages/SearchPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import LogoutPage from "./pages/LogoutPage.tsx";
 
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: "search",
-        element: <p>search</p>,
+        element: <SearchPage/>,
       },
       {
         path: "library",

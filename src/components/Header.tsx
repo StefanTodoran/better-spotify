@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Button from "./Button";
+import HeaderButton from "./HeaderButton";
 
 import Logo from "../assets/logo.svg?react";
 import "../styles/Header.css";
@@ -13,7 +13,7 @@ export default function Header({
   authenticated
 }: Props) {
   const navigate = useNavigate();
-
+  
   const [headerHeight, setHeaderHeight] = useState(0);
   const header = useRef<HTMLElement>(null);
 
@@ -49,7 +49,7 @@ export default function Header({
           tabIndex={0}
           className="branding"
           onClick={() => {
-            navigate("/");
+            // navigate("/");
           }}
         >
           <Logo className="logo" />
@@ -58,34 +58,32 @@ export default function Header({
 
         {/* NAV BUTTONS */}
         <div>
-          <Button onClick={() => {
-            navigate("/search");
-          }} disabled={!authenticated}>
-            Search
-          </Button>
-          <Button onClick={() => {
-            navigate("/library");
-          }} disabled={!authenticated}>
-            Library
-          </Button>
-          <Button onClick={() => {
-            navigate("/friends");
-          }} disabled={!authenticated}>
-            Friends
-          </Button>
+          <HeaderButton
+            customClass="header-button"
+            displayPath="Search"
+            disabled={!authenticated}
+          />
+          <HeaderButton
+            customClass="header-button"
+            displayPath="Library"
+            disabled={!authenticated}
+          />
+          <HeaderButton
+            customClass="header-button"
+            displayPath="Friends"
+            disabled={!authenticated}
+          />
 
           {
             authenticated ?
-            <Button onClick={() => {
-              navigate("/logout");
-            }}>
-              Log Out
-            </Button> :
-            <Button customClass="primary" onClick={() => {
-              navigate("/login");
-            }}>
-              Log In
-            </Button>
+              <HeaderButton
+                customClass="header-button"
+                displayPath="Log Out"
+              /> :
+              <HeaderButton
+                customClass="header-button primary"
+                displayPath="Log In"
+              />
           }
         </div>
       </nav>
