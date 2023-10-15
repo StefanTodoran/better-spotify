@@ -39,7 +39,6 @@ export default function SearchPage({ }) {
       query: searchQuery,
     }, authToken);
 
-    console.log(requestOptions);
     fetch(baseUrl + "api/search", requestOptions)
       .then((response) => response.json())
       .then((json) => {

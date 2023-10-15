@@ -6,15 +6,18 @@ import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import Track from "../components/Track";
 import Tag from "../components/Tag";
-import { FilterMode, SearchResult, getFilteredTracks } from "../utils";
+import { FilterMode, SearchResult, getFilteredTracks, getRequestOptions } from "../utils";
 
 import LibraryIcon from "../assets/album-icon.svg";
 import TagIcon from "../assets/tag-icon.svg";
 import TrackIcon from "../assets/playlist-icon.svg";
+import { useOutletContext } from "react-router-dom";
+import { outletContext } from "../App";
 import "../styles/SearchPage.css";
 
 export default function LibraryPage({ }) {
   const [loading, setLoading] = useState(false);
+  const [baseUrl, authToken]: outletContext = useOutletContext();
   const [libraryData, setLibraryData] = useState<SearchResult>();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,102 +29,21 @@ export default function LibraryPage({ }) {
   function fetchLibrary() {
     setLoading(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setLibraryData({
-        tracks: [
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
-            artistNames: ["Bad Bunny", "Jhayco"],
-            duration: 205000, // ms
-            playable: true,
-            tags: ["TAG_123", "TAG_456"],
-            name: "DAKITI",
-            uuid: "UUID123", // Mixtify ID
-          },
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
-            artistNames: ["Bad Bunny"],
-            duration: 210000, // ms
-            playable: true,
-            tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
-            name: "MIA (feat. Drake)",
-            uuid: "UUID456", // Mixtify ID
-          },
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
-            artistNames: ["Bad Bunny", "Chencho Corleone"],
-            duration: 178000, // ms
-            playable: true,
-            tags: ["TAG_123"],
-            name: "Me Porto Bonito",
-            uuid: "UUID789", // Mixtify ID
-          },
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
-            artistNames: ["Bad Bunny", "Jhayco"],
-            duration: 205000, // ms
-            playable: true,
-            tags: ["TAG_123", "TAG_456"],
-            name: "DAKITI",
-            uuid: "UUID123", // Mixtify ID
-          },
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
-            artistNames: ["Bad Bunny"],
-            duration: 210000, // ms
-            playable: true,
-            tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
-            name: "MIA (feat. Drake)",
-            uuid: "UUID456", // Mixtify ID
-          },
-          {
-            albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
-            artistNames: ["Bad Bunny", "Chencho Corleone"],
-            duration: 178000, // ms
-            playable: true,
-            tags: ["TAG_123"],
-            name: "Me Porto Bonito",
-            uuid: "UUID789", // Mixtify ID
-          },
-        ],
-        numTracks: 0,
+    const requestOptions = getRequestOptions("POST", {
+      query: searchQuery,
+    }, authToken);
 
-        playlists: [],
-        numPlaylists: 0,
-
-        tags: [
-          {
-            name: "feeling bad >:)",
-            uuid: "TAG_123",
-          },
-          {
-            name: "bad boy vibes",
-            uuid: "TAG_456",
-          },
-          {
-            name: "bad bad",
-            uuid: "TAG_789",
-          },
-          {
-            name: "something something bad",
-            uuid: "TAG2_123",
-          },
-          {
-            name: "idk",
-            uuid: "TAG2_456",
-          },
-          {
-            name: "tag",
-            uuid: "TAG2_789",
-          },
-        ],
-        numTags: 0,
-
-        friends: [],
-        numFriends: 0,
+    fetch(baseUrl + "api/search", requestOptions)
+      .then((response) => response.json())
+      .then((json) => {
+        setLoading(false);
+        setLibraryData(json);
+        console.log("JSON", json);
+      })
+      .catch(error => {
+        console.error("search:", error);
+        setLoading(false);
       });
-    }, 1000);
   }
 
   // TODO: instead of fetching the user's entire library each time
@@ -150,8 +72,6 @@ export default function LibraryPage({ }) {
     if (target === selectedTrack) setSelectedTrack(-1);
     else setSelectedTrack(target);
   }
-
-  console.log(">", selectedTrack);
 
   return (
     <>

@@ -1,4 +1,5 @@
 import PageHeading from "../components/PageHeading";
+// import PageHeading from "../components/PageHeading";
 
 import HomeIcon from "../assets/logo-icon.svg";
 import "../styles/HelpPage.css";
