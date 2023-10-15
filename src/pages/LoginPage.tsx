@@ -5,13 +5,12 @@ import Button from "../components/Button";
 import PageHeading from "../components/PageHeading";
 
 import AuthIcon from "../assets/auth-icon.svg";
+import { outletContext } from "../App";
 
 export default function LoginPage({ }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  
-  // @ts-expect-error
-  const [authenticated, setAuthenticated] = useOutletContext();
+  const [baseUrl, authenticated, setAuthenticated]: outletContext = useOutletContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -23,11 +22,26 @@ export default function LoginPage({ }) {
 
   function handleLoginAttempt() {
     setLoading(true);
-    // TODO: make this actually POST and work
 
-    setTimeout(() => {
-      setAuthenticated(true);
-    }, 500);
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: username,
+        password: password,
+      }),
+    };
+
+    fetch(baseUrl + "api/login/", requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          setAuthenticated(true);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        setAuthenticated(false);
+      });
   }
 
   useEffect(() => {
@@ -37,7 +51,7 @@ export default function LoginPage({ }) {
   return (
     <>
       <PageHeading iconSrc={AuthIcon}>Login</PageHeading>
-      
+
       <TextInput
         label="Username"
         value={username}

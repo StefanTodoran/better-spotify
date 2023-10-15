@@ -30,6 +30,7 @@
   overflow: hidden;
   padding-right: 0;
   padding-left: 0;
+  user-select: none;
 }
 
 .toggle-button>.tag {

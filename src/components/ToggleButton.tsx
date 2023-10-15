@@ -1,4 +1,4 @@
-import { CSSProperties, useLayoutEffect, useRef, useState } from "react";
+import { CSSProperties, useRef } from "react";
 import "../styles/Taglike.css";
 
 interface Props {
@@ -30,8 +30,10 @@ export default function ToggleButton({
       <span
         className="current-option"
         style={{
-          "--first-width": `${firstOptionRef.current?.offsetWidth}px`,
-          "--second-width": `${secondOptionRef.current?.offsetWidth}px`,
+          // We want undefine if the ref.current is not truthy so
+          // the CSS fallback can kick in.
+          "--first-width": getWidthOrNone(firstOptionRef),
+          "--second-width": getWidthOrNone(secondOptionRef),
         } as CSSProperties}
       ></span>
 
@@ -47,4 +49,8 @@ export default function ToggleButton({
       >{secondOption}</span>
     </span>
   );
+}
+
+function getWidthOrNone(ref: React.MutableRefObject<HTMLSpanElement | undefined>) {
+  return ref.current ? `${ref.current?.offsetWidth}px` : undefined;
 }

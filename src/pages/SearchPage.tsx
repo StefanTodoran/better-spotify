@@ -12,6 +12,7 @@ import TrackIcon from "../assets/playlist-icon.svg";
 import "../styles/SearchPage.css";
 import Tag, { TaglistObject } from "../components/Tag";
 import ToggleButton from "../components/ToggleButton";
+import { FilterMode, getFilteredTracks } from "../utils";
 
 interface SearchResult {
   tracks: TrackObject[],
@@ -99,6 +100,33 @@ export default function SearchPage({ }) {
             name: "Me Porto Bonito",
             uuid: "UUID789", // Mixtify ID
           },
+          {
+            albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
+            artistNames: ["Bad Bunny", "Jhayco"],
+            duration: 205000, // ms
+            playable: true,
+            tags: ["TAG_123", "TAG_456"],
+            name: "DAKITI",
+            uuid: "UUID123", // Mixtify ID
+          },
+          {
+            albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
+            artistNames: ["Bad Bunny"],
+            duration: 210000, // ms
+            playable: true,
+            tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
+            name: "MIA (feat. Drake)",
+            uuid: "UUID456", // Mixtify ID
+          },
+          {
+            albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
+            artistNames: ["Bad Bunny", "Chencho Corleone"],
+            duration: 178000, // ms
+            playable: true,
+            tags: ["TAG_123"],
+            name: "Me Porto Bonito",
+            uuid: "UUID789", // Mixtify ID
+          },
         ],
         numTracks: 0,
 
@@ -155,8 +183,8 @@ export default function SearchPage({ }) {
   // DEBOUNCING SEARCH QUERIES \\
   // [ ===================== ] \\
 
-  const [filterMode, setFilterMode] = useState("Match All");
-  const [selectedTags, setSelectedTags] = useState(new Set());
+  const [filterMode, setFilterMode] = useState<FilterMode>("Match Any");
+  const [selectedTags, setSelectedTags] = useState(new Set<string>());
 
   function toggleTag(target: string) {
     const newSelected = new Set(selectedTags);
@@ -168,7 +196,7 @@ export default function SearchPage({ }) {
     setSelectedTags(newSelected);
   }
 
-  // const filteredTracks = searchResult?.tracks.filter((track) => {});
+  const filteredTracks = getFilteredTracks(searchResult?.tracks, selectedTags, filterMode);
 
   return (
     <>
@@ -199,6 +227,14 @@ export default function SearchPage({ }) {
             {searchResult.tags.length > 0 && <>
               <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
               <div className="tags-container">
+                <ToggleButton
+                  firstOption="Match Any"
+                  secondOption="Match All"
+                  current={filterMode === "Match Any" ? 0 : 1}
+                  // @ts-expect-error It will be of type FilterMode
+                  onClick={setFilterMode}
+                />
+
                 {searchResult.tags.map((tag, idx) =>
                   <Tag
                     key={idx}
@@ -207,25 +243,28 @@ export default function SearchPage({ }) {
                     onClick={() => { toggleTag(tag.uuid) }}
                   />
                 )}
-
-                <ToggleButton
-                  firstOption="Match Any"
-                  secondOption="Match All"
-                  current={filterMode === "Match Any" ? 0 : 1}
-                  onClick={setFilterMode}
-                />
               </div>
             </>}
 
             {searchResult.tracks.length > 0 && <>
               <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
-              {searchResult.tracks.map((track, idx) =>
+              {filteredTracks.map((track, idx) =>
                 <Track
                   key={idx}
                   {...track}
                   onClick={() => { }}
                 />
               )}
+
+              {filteredTracks.length === 0 ?
+                <p className="hint" style={{ maxWidth: "unset" }}>
+                  No tracks match all tags!
+                </p>
+                :
+                <p className="hint" style={{ maxWidth: "unset" }}>
+                  Found <b>{filteredTracks.length}</b> tracks that match your search.
+                </p>
+              }
             </>}
           </section>
           :
