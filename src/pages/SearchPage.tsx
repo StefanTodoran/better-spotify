@@ -82,7 +82,15 @@ export default function SearchPage({ }) {
     setSelectedTags(newSelected);
   }
 
-  const [currentlyPlaying, setPlaybackState] = useState(false);
+  interface PlaybackState {
+    id: string,
+    offset: number,
+    playing: boolean,
+  }
+  const [playbackState, setPlaybackState] = useState<PlaybackState>({
+    id: "", offset: 0, playing: false,
+  });
+
   const [selectedTrack, setSelectedTrack] = useState(-1);
   function handleTrackSelection(target: number) {
     if (target === selectedTrack) setSelectedTrack(-1);
@@ -144,15 +152,34 @@ export default function SearchPage({ }) {
                   key={idx}
                   {...track}
                   selected={selectedTrack === idx}
-                  currentlyPlaying={currentlyPlaying}
+                  currentlyPlaying={playbackState.playing && playbackState.id === track.uuid}
                   playPauseCallback={() => {
-                    if (currentlyPlaying) {
+                    // A track is currently playing and it is this track...
+                    if (playbackState.id === track.uuid && playbackState.playing) {
                       pausePlayback(authToken)
-                        .then(() => { setPlaybackState(false) })
+                        .then((response) => response.json())
+                        .then((json) => {
+                          setPlaybackState({ id: track.uuid, playing: false, offset: json.position });
+                        })
                         .catch((error) => console.error(error));
-                    } else {
+                    }
+
+                    // A track is not playing but we were last playing this track...
+                    if (playbackState.id === track.uuid && !playbackState.playing) {
+                      const offset = playbackState.offset < track.duration ? playbackState.offset : 0;
+                      beginPlayback(track.uuid, offset, authToken)
+                        .then(() => {
+                          setPlaybackState({ id: track.uuid, playing: true, offset });
+                        })
+                        .catch((error) => console.error(error));
+                    }
+
+                    // A track is not playing but we weren't last playing this track...
+                    if (playbackState.id !== track.uuid && !playbackState.playing) {
                       beginPlayback(track.uuid, 0, authToken)
-                        .then(() => { setPlaybackState(true) })
+                        .then(() => {
+                          setPlaybackState({ id: track.uuid, playing: true, offset: 0 });
+                        })
                         .catch((error) => console.error(error));
                     }
                   }}

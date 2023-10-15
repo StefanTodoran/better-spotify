@@ -33,8 +33,8 @@ export default function LibraryPage({ }) {
       query: searchQuery,
     }, authToken);
 
-    console.log(baseUrl + "api/search", requestOptions);
-    fetch(baseUrl + "api/search", requestOptions)
+    console.log(baseUrl + "api/listSongs", requestOptions);
+    fetch(baseUrl + "api/listSongs", requestOptions)
       .then((response) => response.json())
       .then((json) => {
         setLoading(false);
@@ -77,7 +77,7 @@ export default function LibraryPage({ }) {
     <>
       <PageHeading iconSrc={LibraryIcon}>Library</PageHeading>
 
-      <section className="search-results-container">
+      <section className="content-section">
         <div className="controls-container">
           <TextInput
             label="Search"
