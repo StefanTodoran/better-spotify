@@ -111,6 +111,6 @@ export function beginPlayback(song: string, offset: number, token: string) {
  * @param token The user's Django authentication token.
  */
 export function pausePlayback(token: string) {
-  const requestOptions = getRequestOptions("POST", {}, token);
+  const requestOptions = getRequestOptions("PUT", {}, token);
   return fetch(baseUrl + "api/playback/pause", requestOptions);
 }
