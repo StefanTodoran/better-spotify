@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
 import PageHeading from "../components/PageHeading";
@@ -9,34 +8,27 @@ import Tag from "../components/Tag";
 import ToggleButton from "../components/ToggleButton";
 import { FilterMode, SearchResult, getFilteredTracks } from "../utils";
 
-import SearchIcon from "../assets/search-icon.svg";
+import LibraryIcon from "../assets/album-icon.svg";
 import TagIcon from "../assets/tag-icon.svg";
 import TrackIcon from "../assets/playlist-icon.svg";
 import "../styles/SearchPage.css";
 
-export default function SearchPage({ }) {
+export default function LibraryPage({ }) {
   const [loading, setLoading] = useState(false);
+  const [libraryData, setLibraryData] = useState<SearchResult>();
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchResult, setSearchResult] = useState<SearchResult>();
-
   const searchInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
     searchInput.current?.focus();
   }, []);
 
-  function handlePreviewSearch() {
-    // TODO: implement this, gets first 5 results
-    console.log("handlePreviewSearch");
-  }
-
-  function handleFullSearch() {
-    // TODO: implement this, gets first 15, then has pagination
+  function fetchLibrary() {
     setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
-      setSearchResult({
+      setLibraryData({
         tracks: [
           {
             albumArt: "https://i.scdn.co/image/ab67616d00001e0234c8199b0b3b3fb42b8a98a8",
@@ -132,21 +124,11 @@ export default function SearchPage({ }) {
     }, 1000);
   }
 
-  // [ ===================== ] \\
-  // DEBOUNCING SEARCH QUERIES \\
-
-  const debounceTimeoutId = useRef(0);
-  function debounceEventHandler(func: () => void, delay: number) {
-    clearTimeout(debounceTimeoutId.current);
-    debounceTimeoutId.current = setTimeout(() => func(), delay);
-  }
-
+  // TODO: instead of fetching the user's entire library each time
+  // they navigate to this page, cache their tags and tracks.
   useEffect(() => {
-    debounceEventHandler(handlePreviewSearch, 300);
-  }, [searchQuery]);
-
-  // DEBOUNCING SEARCH QUERIES \\
-  // [ ===================== ] \\
+    fetchLibrary();
+  }, []);
 
   const [filterMode, setFilterMode] = useState<FilterMode>("Match Any");
   const [selectedTags, setSelectedTags] = useState(new Set<string>());
@@ -161,83 +143,76 @@ export default function SearchPage({ }) {
     setSelectedTags(newSelected);
   }
 
-  const filteredTracks = getFilteredTracks(searchResult?.tracks, selectedTags, filterMode);
+  const filteredTracks = getFilteredTracks(libraryData?.tracks, selectedTags, filterMode);
 
   return (
     <>
-      <PageHeading iconSrc={SearchIcon}>Search</PageHeading>
+      <PageHeading iconSrc={LibraryIcon}>Library</PageHeading>
 
-      <div className="buttons-row">
-        <div onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
-          if (event.key === "Enter") handleFullSearch();
-        }}>
+
+      <section className="search-results-container">
+        <div className="controls-container">
           <TextInput
             label="Search"
             value={searchQuery}
             updateValue={!loading ? setSearchQuery : undefined}
             giveRef={searchInput}
           />
+
+          <div className="controls-buttons">
+            <Button
+              onClick={fetchLibrary}
+              disabled={loading}
+            >Refresh</Button>
+            <Button
+              onClick={fetchLibrary}
+              disabled={loading}
+            >Manage</Button>
+          </div>
         </div>
 
-        <Button
-          customClass="primary"
-          onClick={handleFullSearch}
-          disabled={!searchQuery || loading}
-        >Search</Button>
-      </div>
+        {libraryData && libraryData.tags.length > 0 && <>
+          <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
+          <div className="tags-container">
+            <ToggleButton
+              firstOption="Match Any"
+              secondOption="Match All"
+              current={filterMode === "Match Any" ? 0 : 1}
+              // @ts-expect-error It will be of type FilterMode
+              onClick={setFilterMode}
+            />
 
-      {
-        searchResult ?
-          <section className="search-results-container">
-            {searchResult.tags.length > 0 && <>
-              <SectionBreak iconSrc={TagIcon}>Tags</SectionBreak>
-              <div className="tags-container">
-                <ToggleButton
-                  firstOption="Match Any"
-                  secondOption="Match All"
-                  current={filterMode === "Match Any" ? 0 : 1}
-                  // @ts-expect-error It will be of type FilterMode
-                  onClick={setFilterMode}
-                />
+            {libraryData?.tags.map((tag, idx) =>
+              <Tag
+                key={idx}
+                {...tag}
+                selected={selectedTags.has(tag.uuid)}
+                onClick={() => { toggleTag(tag.uuid) }}
+              />
+            )}
+          </div>
+        </>}
 
-                {searchResult.tags.map((tag, idx) =>
-                  <Tag
-                    key={idx}
-                    {...tag}
-                    selected={selectedTags.has(tag.uuid)}
-                    onClick={() => { toggleTag(tag.uuid) }}
-                  />
-                )}
-              </div>
-            </>}
+        {libraryData && libraryData.tracks.length > 0 && <>
+          <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
+          {filteredTracks.map((track, idx) =>
+            <Track
+              key={idx}
+              {...track}
+              onClick={() => { }}
+            />
+          )}
 
-            {searchResult.tracks.length > 0 && <>
-              <SectionBreak iconSrc={TrackIcon}>Tracks</SectionBreak>
-              {filteredTracks.map((track, idx) =>
-                <Track
-                  key={idx}
-                  {...track}
-                  onClick={() => { }}
-                />
-              )}
+          {filteredTracks.length === 0 && <p className="hint" style={{ maxWidth: "unset" }}>
+            No tracks match all tags!
+          </p>}
+        </>}
+      </section>
 
-              {filteredTracks.length === 0 ?
-                <p className="hint" style={{ maxWidth: "unset" }}>
-                  No tracks match all tags!
-                </p>
-                :
-                <p className="hint" style={{ maxWidth: "unset" }}>
-                  Found <b>{filteredTracks.length}</b> tracks that match your search.
-                </p>
-              }
-            </>}
-          </section>
-          :
-          <p className="hint">
-            Search for tracks, artists, albums, tags, friends, or playlists.<br />
-            Confused? See the <Link to="/help">help center</Link>.
-          </p>
-      }
+      {/* <p className="hint">
+        Your library contains all of your tags and tagged songs.<br />
+        Confused? See the <Link to="/help">help center</Link>.
+      </p> */}
     </>
   );
 }

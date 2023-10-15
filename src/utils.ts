@@ -1,4 +1,41 @@
+import { TaglistObject } from "./components/Tag";
 import { TrackObject } from "./components/Track";
+
+export interface SearchResult {
+  tracks: TrackObject[],
+  numTracks: number,
+
+  // artists: any,
+  // numArtists: number,
+
+  // albums: any,
+  // numAlbums: number,
+
+  playlists: PlaylistObject[],
+  numPlaylists: number,
+
+  tags: TaglistObject[],
+  numTags: number,
+
+  friends: UserObject[],
+  numFriends: number,
+}
+
+interface PlaylistObject {
+  collaborative: boolean,
+  description?: string,
+  image: string, // url
+  name: string,
+  owner: UserObject,
+  uuid: string,
+}
+
+interface UserObject {
+  username: string,
+  isFriend: boolean,
+  profileUrl: string,
+  uuid: string, // Mixify ID
+}
 
 export type FilterMode = "Match Any" | "Match All";
 export function getFilteredTracks(
@@ -32,14 +69,24 @@ export function getRequestOptions(
   body: any,
   token?: string,
 ) {
+  const csrftoken = getCookieValue("csrftoken");
   return {
     method: type,
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin" : "*",
+      "X-CSRFToken": csrftoken,
       ...(token && { "Authorization": "Token " + token }),
     },
     body: JSON.stringify(body),
   };
+}
+
+function getCookieValue(key: string) {
+  const value = document.cookie
+    .split("; ")
+    .find((row) => row.startsWith(key + "="))
+    ?.split("=")[1];
+  return value;
 }

@@ -31,7 +31,10 @@ export default function Track({
 
   return (
     <div className="track" onClick={onClick} tabIndex={0}>
-      <img className="album-art" src={albumArt} />
+      <div className="art-container">
+        <img className="album-art" src={albumArt} />
+        <div className="start-playback"></div>
+      </div>
 
       <div className="info-container">
         <h3>{name}</h3>

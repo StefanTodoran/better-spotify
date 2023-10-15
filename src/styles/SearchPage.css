@@ -9,6 +9,20 @@
   flex-wrap: wrap;
 }
 
+.controls-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+
+.controls-container>div.controls-buttons {
+  display: flex;
+  flex-direction: row;
+  margin-top: 0;
+}
+
 /* ===== BEGIN SCREEN SIZE SPECIFIC STYLES ===== */
 /* Styles cascade down, with styles for desktop  */
 /* applying to all sizes, tablet styles applying */

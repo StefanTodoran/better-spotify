@@ -8,7 +8,7 @@ export default function App() {
   const navigate = useNavigate();
   
   const baseUrl = "/";
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(true);
   const [authToken, setAuthToken] = useState<string | null>(null);
   // const [searchParams, setSearchParams] = useSearchParams();
 

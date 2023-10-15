@@ -17,10 +17,30 @@
   cursor: pointer;
 }
 
-.track > .album-art {
+.track > .art-container {
+  position: relative;
+  margin-right: 1rem;
+}
+
+.art-container > .album-art {
   height: 4rem;
   border-radius: .5rem;
-  margin-right: 1rem;
+}
+
+.art-container > .start-playback {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.art-container:hover > .start-playback {
+  opacity: 1;
+  pointer-events: unset;
 }
 
 .track > .info-container {
