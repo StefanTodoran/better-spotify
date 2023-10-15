@@ -17,7 +17,7 @@ import "../styles/SearchPage.css";
 
 export default function SearchPage({ }) {
   const [loading, setLoading] = useState(false);
-  const [baseUrl, _authenticated, _setAuthenticated, authToken]: outletContext = useOutletContext();
+  const [baseUrl, authToken]: outletContext = useOutletContext();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResult, setSearchResult] = useState<SearchResult>();

@@ -11,7 +11,7 @@ import { getRequestOptions } from "../utils";
 export default function LoginPage({ }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
-  const [baseUrl, authenticated, setAuthenticated]: outletContext = useOutletContext();
+  const [baseUrl, authToken, setAuthToken]: outletContext = useOutletContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -31,22 +31,21 @@ export default function LoginPage({ }) {
 
     // @ts-expect-error TODO: probably remove this
     fetch(baseUrl + "api/login/", requestOptions)
-      .then((response) => {
-        if (response.ok) {
-          setAuthenticated(true);
-        }
+      .then((response) => response.json())
+      .then((json) => {
+        setAuthToken(json.token);
         setLoading(false);
       })
       .catch(error => {
         console.error(error);
-        setAuthenticated(false);
+        setAuthToken(null);
         setLoading(false);
       });
   }
 
   useEffect(() => {
-    if (authenticated) navigate("/");
-  }, [authenticated]);
+    if (authToken) navigate("/");
+  }, [authToken]);
 
   return (
     <>
@@ -75,7 +74,7 @@ export default function LoginPage({ }) {
         <Button
           customClass="primary"
           onClick={handleLoginAttempt}
-          disabled={loading || authenticated}
+          disabled={loading || !!authToken}
         >Log In</Button>
       </div>
 
