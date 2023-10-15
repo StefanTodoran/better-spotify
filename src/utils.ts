@@ -1,6 +1,8 @@
 import { TaglistObject } from "./components/Tag";
 import { TrackObject } from "./components/Track";
 
+export const baseUrl = "/";
+
 export interface SearchResult {
   tracks: TrackObject[],
   numTracks: number,
@@ -72,11 +74,11 @@ export function getRequestOptions(
   const csrftoken = getCookieValue("csrftoken");
   return {
     method: type,
-    mode: "cors",
+    // mode: "cors",
     headers: {
       "Content-Type": "application/json",
       "Access-Control-Allow-Origin" : "*",
-      "X-CSRFToken": csrftoken,
+      "X-CSRFToken": csrftoken!,
       ...(token && { "Authorization": "Token " + token }),
     },
     body: JSON.stringify(body),
@@ -89,4 +91,26 @@ function getCookieValue(key: string) {
     .find((row) => row.startsWith(key + "="))
     ?.split("=")[1];
   return value;
+}
+
+/**
+ * @param song The track's Mixify ID or UUID. 
+ * @param offset How far to start the playback in milliseconds.
+ * @param token The user's Django authentication token.
+ */
+export function beginPlayback(song: string, offset: number, token: string) {
+  const requestOptions = getRequestOptions("POST", {
+    song: song,
+    position: offset,
+  }, token);
+
+  return fetch(baseUrl + "api/playback/play", requestOptions);
+}
+
+/**
+ * @param token The user's Django authentication token.
+ */
+export function pausePlayback(token: string) {
+  const requestOptions = getRequestOptions("POST", {}, token);
+  return fetch(baseUrl + "api/playback/play", requestOptions);
 }

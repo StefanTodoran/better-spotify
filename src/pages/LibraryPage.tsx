@@ -133,6 +133,7 @@ export default function LibraryPage({ }) {
   const [filterMode, setFilterMode] = useState<FilterMode>("Match Any");
   const [selectedTags, setSelectedTags] = useState(new Set<string>());
 
+  const filteredTracks = getFilteredTracks(libraryData?.tracks, selectedTags, filterMode);
   function toggleTag(target: string) {
     const newSelected = new Set(selectedTags);
     if (newSelected.has(target)) {
@@ -143,7 +144,14 @@ export default function LibraryPage({ }) {
     setSelectedTags(newSelected);
   }
 
-  const filteredTracks = getFilteredTracks(libraryData?.tracks, selectedTags, filterMode);
+  const [selectedTrack, setSelectedTrack] = useState(-1);
+  function handleTrackSelection(target: number) {
+    console.log(target);
+    if (target === selectedTrack) setSelectedTrack(-1);
+    else setSelectedTrack(target);
+  }
+
+  console.log(">", selectedTrack);
 
   return (
     <>
@@ -199,9 +207,10 @@ export default function LibraryPage({ }) {
             <Track
               key={idx}
               {...track}
+              selected={selectedTrack === idx}
               currentlyPlaying={false}
-              playPauseCallback={() => {}}
-              onClick={() => { }}
+              playPauseCallback={() => { }}
+              onClick={() => { handleTrackSelection(idx) }}
             />
           )}
 

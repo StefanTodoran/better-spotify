@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import { Outlet, useNavigate } from "react-router-dom";
+import { baseUrl } from "./utils";
 
 import "./App.css";
 
 export default function App() {
   const navigate = useNavigate();
-  
-  const baseUrl = "/";
-  const [authToken, setAuthToken] = useState<string | null>(null);
+  const [authToken, setAuthToken] = useState<string | null>("null");
   // const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     if (!authToken) navigate("/login");
+    // if (authToken) window.location.href = baseUrl + "spotify/login/"; // TODO: add endpoint and check that instead
   }, [authToken]);
 
   return (
@@ -20,10 +20,10 @@ export default function App() {
       <div className="main-content">
         <Header authenticated={!!authToken} />
         <Outlet context={[
-          baseUrl, 
-          authToken, 
+          baseUrl,
+          authToken,
           setAuthToken
-          ]}/>
+        ]} />
       </div>
     </>
   )

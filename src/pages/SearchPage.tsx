@@ -40,7 +40,6 @@ export default function SearchPage({ }) {
     }, authToken);
 
     console.log(requestOptions);
-    // @ts-expect-error TODO: probably remove this
     fetch(baseUrl + "api/search", requestOptions)
       .then((response) => {
         if (response.ok) {

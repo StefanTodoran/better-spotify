@@ -6,7 +6,6 @@ export default function LogoutPage() {
   const [logoutSuccess, setLogoutSuccess] = useState(false);
   const [_baseUrl, _authToken, setAuthToken]: outletContext = useOutletContext();
 
-
   useEffect(() => {
     setTimeout(() => {
       setAuthToken(null);

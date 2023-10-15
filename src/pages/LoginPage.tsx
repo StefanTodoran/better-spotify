@@ -29,8 +29,8 @@ export default function LoginPage({ }) {
       password: password,
     });
 
-    // @ts-expect-error TODO: probably remove this
-    fetch(baseUrl + "api/login/", requestOptions)
+    // fetch(baseUrl + "api/login/", requestOptions)
+    fetch(baseUrl + "accounts/login/", requestOptions)
       .then((response) => response.json())
       .then((json) => {
         setAuthToken(json.token);

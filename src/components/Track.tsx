@@ -17,6 +17,7 @@ interface Props {
   artistNames: string[],
   duration: number,
   name: string,
+  selected?: boolean,
   currentlyPlaying: boolean,
   playPauseCallback: () => void,
   onClick: () => void,
@@ -27,14 +28,18 @@ export default function Track({
   artistNames,
   duration,
   name,
+  selected,
   currentlyPlaying,
   playPauseCallback,
   onClick,
 }: Props) {
   const timeInfo = millisecondsToMinutesSeconds(duration);
 
+  let className = "track";
+  if (selected) className += " selected";
+
   return (
-    <div className="track" onClick={onClick} tabIndex={0}>
+    <div className={className} onClick={onClick} tabIndex={0}>
       <div className="art-container">
         <img className="album-art" src={albumArt} />
         <div className="toggle-playback">
@@ -56,6 +61,10 @@ export default function Track({
           }</span>
           <span className="time-info">{timeInfo.minutes}:{timeInfo.seconds}</span>
         </div>
+      </div>
+
+      <div className="progress-bar-container">
+        <div className="progress-bar-fill"/>
       </div>
     </div>
   );
