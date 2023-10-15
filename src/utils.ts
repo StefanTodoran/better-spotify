@@ -48,7 +48,7 @@ export function getFilteredTracks(
   // @ts-expect-error TypeScript compiler is just smooth-brained, this is guaranteed to return TrackObject[]
 ): TrackObject[] {
   if (!tracks || tracks.length === 0) return [];
-  if (tags.size === 0) return tracks;
+  if (!tags || tags.size === 0) return tracks;
 
   if (mode === "Match Any") {
     return tracks.filter(track => {

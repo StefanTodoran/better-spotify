@@ -44,27 +44,63 @@ export default function SearchPage({ }) {
     //         artistNames: ["Bad Bunny", "Jhayco"],
     //         duration: 205000, // ms
     //         playable: true,
-    //         tags: ["TAG_123", "TAG_456"],
+    //         tags: ["feeling bad >:)", "bad boy vibes"],
     //         name: "DAKITI",
-    //         uuid: "UUID123", // Mixtify ID
+    //         uuid: "1", // Mixtify ID
     //       },
     //       {
     //         albumArt: "https://i.scdn.co/image/ab67616d00001e024d382194384bc6e08eb090f6",
     //         artistNames: ["Bad Bunny"],
     //         duration: 210000, // ms
     //         playable: true,
-    //         tags: ["TAG_123", "TAG_789", "TAG2_123", "TAG2_456"],
+    //         tags: ["feeling bad >:)", "bad bad", "something something bad"],
     //         name: "MIA (feat. Drake)",
-    //         uuid: "UUID456", // Mixtify ID
+    //         uuid: "2", // Mixtify ID
     //       },
     //       {
     //         albumArt: "https://i.scdn.co/image/ab67616d00001e0249d694203245f241a1bcaa72",
     //         artistNames: ["Bad Bunny", "Chencho Corleone"],
     //         duration: 178000, // ms
     //         playable: true,
-    //         tags: ["TAG_123"],
+    //         tags: ["feeling bad >:)"],
     //         name: "Me Porto Bonito",
-    //         uuid: "UUID789", // Mixtify ID
+    //         uuid: "3", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e027b1fc51ff3257b5286a1ecec",
+    //         artistNames: ["Bad Bunny"],
+    //         duration: 165000, // ms
+    //         playable: true,
+    //         tags: ["feeling bad >:)", "bad boy vibes"],
+    //         name: "UN PREVIEW",
+    //         uuid: "4", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e025f3aef5159749e4b61686670",
+    //         artistNames: ["Fuerza Regida", "Bad Bunny"],
+    //         duration: 271000, // ms
+    //         playable: true,
+    //         tags: ["feeling bad >:)", "bad bad"],
+    //         name: "Bebe Dame",
+    //         uuid: "5", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e02f6f36a5ff816939253221bec",
+    //         artistNames: ["Yahritza Y Su Esencia", "Bad Bunny"],
+    //         duration: 160000, // ms
+    //         playable: true,
+    //         tags: [],
+    //         name: "Frágil",
+    //         uuid: "6", // Mixtify ID
+    //       },
+    //       {
+    //         albumArt: "https://i.scdn.co/image/ab67616d00001e0282ce4c7bbf861185252e82ae",
+    //         artistNames: ["Grupo Frontera", "Bad Bunny"],
+    //         duration: 194000, // ms
+    //         playable: true,
+    //         tags: ["something something bad"],
+    //         name: "un x100to",
+    //         uuid: "7", // Mixtify ID
     //       },
     //     ],
     //     numTracks: 0,
