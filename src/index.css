@@ -28,7 +28,8 @@ body {
 
 body,
 button,
-input {
+input,
+select {
   font-family: 'Poppins', sans-serif;
   color: white;
 }

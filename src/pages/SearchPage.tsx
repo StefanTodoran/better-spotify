@@ -2,19 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import TextInput from "../components/TextInput";
 import Button from "../components/Button";
+import Dropdown from "../components/DropDown";
 
 enum SearchMode {
-  SONG,
-  USER,
-  TAG,
-}
+  Song,
+  User,
+  Tag,
+};
+const SearchModeStrings = Object.keys(SearchMode).filter((el) => { return isNaN(Number(el)) });
 
 export default function SearchPage({ }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [searchType, setSearchType] = useState(SearchMode.SONG);
+  const [searchType, setSearchType] = useState("");
 
   const searchInput = useRef<HTMLInputElement>(null);
   useEffect(() => {
@@ -45,12 +47,17 @@ export default function SearchPage({ }) {
   }
 
   useEffect(() => {
-
     debounceEventHandler(handlePreviewSearch, 300);
   }, [searchQuery]);
 
   // DEBOUNCING SEARCH QUERIES \\
   // [ ===================== ] \\
+
+  console.log(Object.keys(SearchMode).filter((el) => { return isNaN(Number(el)) }));
+  console.log(Object.keys(SearchMode).filter((el) => { return !isNaN(Number(el)) }));
+  console.log(Object.keys(SearchMode).filter((el) => { return !isNaN(Number(el)) }).map(
+    (elem) => [elem, SearchMode[parseInt(elem)]]
+  ));
 
   return (
     <>
@@ -61,10 +68,24 @@ export default function SearchPage({ }) {
           <TextInput
             label="Search"
             value={searchQuery}
-            updateValue={setSearchQuery}
+            updateValue={!loading ? setSearchQuery : undefined}
             giveRef={searchInput}
           />
         </div>
+
+        <Dropdown
+          value={searchType}
+          updateValue={setSearchType}
+          label={"Type"}
+          options={(() => {
+            const options: { [key: string]: string } = {};
+            SearchModeStrings.forEach((mode, idx) => {
+              options[idx.toString()] = mode;
+            });
+
+            return options;
+          })()}
+        />
 
         <Button
           customClass="primary"

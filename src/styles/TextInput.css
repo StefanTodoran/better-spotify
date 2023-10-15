@@ -99,8 +99,8 @@ input[type=number]:not(.show-steppers)::-webkit-outer-spin-button {
   /* to account for the larger border */
 }
 
-.form-item.read-only>.form-field {
-  border-color: var(--border-color);
+.form-item.read-only {
+  opacity: 0.5;
 }
 
 .form-field:focus-within {
