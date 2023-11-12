@@ -24,8 +24,8 @@ export default function Header({
   // OPEN & CLOSE MENU DROPDOWN \\
 
   const [menuOpen, setMenuOpen] = useState(false);
-  const menuDropdown = useRef<HTMLElement>(null);
-  const menuBurger = useRef<HTMLElement>(null);
+  const menuDropdown = useRef<HTMLDivElement>(null);
+  const menuBurger = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     function handleClickOutsideMenu(event: MouseEvent) {
@@ -114,7 +114,6 @@ export default function Header({
             <>
               <div
                 id="burger-menu-container"
-                // @ts-expect-error Not sure why it wants a LegacyRef<HTMLDivElement>??
                 ref={menuBurger}
                 tabIndex={0}
                 onKeyDown={(event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -132,7 +131,6 @@ export default function Header({
               <div
                 id="menu-dropdown"
                 className={menuOpen ? "open" : "closed"}
-                // @ts-expect-error Not sure why it wants a LegacyRef<HTMLDivElement>??
                 ref={menuDropdown}
               >
                 <NavButtons displayOn="mobile" authenticated={authenticated} />

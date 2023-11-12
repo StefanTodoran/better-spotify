@@ -9,11 +9,10 @@ import LibraryPage from "./pages/LibraryPage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import LogoutPage from "./pages/LogoutPage.tsx";
 import HelpPage from "./pages/HelpPage.tsx";
+import HomePage from "./pages/HomePage.tsx";
+import FriendsPage from "./pages/FriendsPage.tsx";
 
 import "./index.css";
-import PageHeading from "./components/PageHeading.tsx";
-import FriendsIcon from "./assets/friends-icon.svg";
-import HomePage from "./pages/HomePage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "friends",
-        element: <PageHeading iconSrc={FriendsIcon}>Friends</PageHeading>,
+        element: <FriendsPage/>,
       },
       {
         path: "login",

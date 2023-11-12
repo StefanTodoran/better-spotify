@@ -38,7 +38,7 @@ export default function ToggleButton({
       <span
         className="current-option"
         style={{
-          // We want undefine if the ref.current is not truthy so
+          // We want undefined if the ref.current is not truthy so
           // the CSS fallback can kick in.
           "--first-width": getWidthOrNone(firstOptionRef),
           "--second-width": getWidthOrNone(secondOptionRef),

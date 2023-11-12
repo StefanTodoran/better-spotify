@@ -73,7 +73,7 @@ export default function LibraryPage({ }) {
                 // albumName: "MIA (feat. Drake)",
                 duration: 210000, // ms
                 playable: true,
-                tags: ["feeling bad >:)", "bad bad", "something something bad"],
+                tags: ["feeling bad >:)", "fiesta como ninguna otra", "rainy day"],
                 name: "MIA (feat. Drake)",
                 uuid: "2", // Mixtify ID
               },
@@ -83,7 +83,7 @@ export default function LibraryPage({ }) {
                 // albumName: "DÀKITI",
                 duration: 205000, // ms
                 playable: true,
-                tags: ["feeling bad >:)", "bad boy vibes"],
+                tags: ["feeling bad >:)", "gym songs"],
                 name: "DÀKITI",
                 uuid: "1", // Mixtify ID
               },
@@ -93,7 +93,7 @@ export default function LibraryPage({ }) {
                 // albumName: "Fever",
                 duration: 156000, // ms
                 playable: true,
-                tags: ["dua fever", "bad bad"],
+                tags: ["dua fever", "fiesta como ninguna otra"],
                 name: "Fever",
                 uuid: "c", // Mixtify ID
               },
@@ -113,7 +113,7 @@ export default function LibraryPage({ }) {
                 // albumName: "nadie sabe lo que va a pasar mañana",
                 duration: 165000, // ms
                 playable: true,
-                tags: ["feeling bad >:)", "bad boy vibes"],
+                tags: ["feeling bad >:)", "gym songs"],
                 name: "UN PREVIEW",
                 uuid: "4", // Mixtify ID
               },
@@ -123,7 +123,7 @@ export default function LibraryPage({ }) {
                 // albumName: "Sigan Hablando",
                 duration: 271000, // ms
                 playable: true,
-                tags: ["feeling bad >:)", "bad bad"],
+                tags: ["feeling bad >:)", "fiesta como ninguna otra"],
                 name: "Bebe Dame",
                 uuid: "5", // Mixtify ID
               },
@@ -143,7 +143,7 @@ export default function LibraryPage({ }) {
                 // albumName: "un x100to",
                 duration: 194000, // ms
                 playable: true,
-                tags: ["something something bad"],
+                tags: ["rainy day"],
                 name: "un x100to",
                 uuid: "7", // Mixtify ID
               },
@@ -163,16 +163,16 @@ export default function LibraryPage({ }) {
                 uuid: "feeling bad >:)",
               },
               {
-                name: "bad boy vibes",
-                uuid: "bad boy vibes",
+                name: "gym songs",
+                uuid: "gym songs",
               },
               {
-                name: "bad bad",
-                uuid: "bad bad",
+                name: "fiesta como ninguna otra",
+                uuid: "fiesta como ninguna otra",
               },
               {
-                name: "something something bad",
-                uuid: "something something bad",
+                name: "rainy day",
+                uuid: "rainy day",
               },
             ],
             numTags: 0,
